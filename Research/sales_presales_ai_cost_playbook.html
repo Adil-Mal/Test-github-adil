@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sales & Pre-Sales Playbook: The AI Cost Trap</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1f2328;
+    background-color: #ffffff;
+    line-height: 1.5;
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0 24px;
+  }
+  h1 {
+    color: #0f62fe;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .tagline {
+    color: #57606a;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .callout-story {
+    background-color: #edf5ff;
+    border-left: 5px solid #0f62fe;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+  .callout-story h2 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #0043ce;
+  }
+  h2 {
+    color: #161616;
+    font-size: 18px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 6px;
+    margin-top: 28px;
+    margin-bottom: 12px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 20px 0;
+    font-size: 13px;
+  }
+  th, td {
+    border: 1px solid #d0d7de;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f6f8fa;
+    font-weight: 600;
+    color: #1f2328;
+  }
+  tr:nth-child(even) {
+    background-color: #fcfcfd;
+  }
+  .highlight-badge {
+    display: inline-block;
+    background: #0f62fe;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .diagram {
+    background: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    padding: 14px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+  }
+  .diagram-step {
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .diagram-step:not(:last-child) {
+    border-right: 1px solid #d0d7de;
+  }
+  .diagram-title {
+    font-weight: bold;
+    color: #0f62fe;
+    font-size: 14px;
+  }
+  .diagram-sub {
+    font-size: 12px;
+    color: #57606a;
+    margin-top: 4px;
+  }
+  .question-box {
+    background: #fbfbfc;
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid #198038;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  .question-box strong {
+    color: #198038;
+  }
+  .footer {
+    margin-top: 36px;
+    padding-top: 14px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 11px;
+    color: #6e7781;
+  }
+</style>
+</head>
+<body>
+
+<h1>Sales & Solution Consultant Playbook: The "AI Cost Trap"</h1>
+<p class="tagline">How to turn the #1 GenAI scaling challenge into high-value IBM Automation deals</p>
+
+<div class="callout-story">
+  <h2>The Narrative Every Rep Needs to Know</h2>
+  <p style="margin-bottom: 0;">
+    In 2025, Anthropic grew revenue by <strong>1,000%</strong> (to $4.6B), but their operating loss <strong>doubled to $8B</strong> because infrastructure and compute costs exploded to $7.33B.<br><br>
+    <strong>The Reality for Your Customers:</strong> Almost every enterprise scaling AI, LLMs, or cloud workloads will face this exact same trap: <em>Usage explodes &rarr; Cloud bills surge out of control &rarr; CFO questions the business case.</em>
+  </p>
+</div>
+
+<h2>1. The 3 Customer Archetypes & Buying Triggers</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Target Buyer</th>
+      <th style="width: 35%;">What Keeps Them Awake at Night</th>
+      <th style="width: 40%;">Conversation Triggers (What to Listen For)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CFO / Head of FinOps</strong></td>
+      <td>"We are burning cash on AI/Cloud with no idea what our unit economics or margins are."</td>
+      <td>
+        • "Our AWS/Azure cloud bill doubled since deploying GenAI."<br>
+        • "We don't know our true cost per token or cost per query."<br>
+        • "We signed multi-million dollar cloud commitments and fear overages."
+      </td>
+    </tr>
+    <tr>
+      <td><strong>VP of Infra / SRE</strong></td>
+      <td>"We over-provision expensive GPU/CPU nodes 24/7 so apps don't crash under peak demand."</td>
+      <td>
+        • "Our Kubernetes clusters are running at 60-70% idle capacity."<br>
+        • "Resizing infrastructure manually is too slow and risky."<br>
+        • "Cloud spot instances keep getting terminated unexpectedly."
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Head of AppDev / AI Eng</strong></td>
+      <td>"Our AI models are slow, and troubleshooting complex pipelines takes days of developer time."</td>
+      <td>
+        • "Users complain that our GenAI assistant is lagging."<br>
+        • "A single pipeline crash burns hours of expensive GPU compute."<br>
+        • "We have zero visibility into where tokens are bottlenecking."
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>2. The Simple 3-Step Pitch Framework</h2>
+
+<div class="diagram">
+  <div class="diagram-step">
+    <div class="diagram-title">Step 1: See It</div>
+    <div class="highlight-badge">IBM Apptio</div>
+    <div class="diagram-sub"><strong>Know the Unit Cost</strong><br>Calculate exact cost per token, per customer, and per transaction.</div>
+  </div>
+  <div class="diagram-step">
+    <div class="diagram-title">Step 2: Stop Waste</div>
+    <div class="highlight-badge">IBM Turbonomic</div>
+    <div class="diagram-sub"><strong>Automate Resource Sizing</strong><br>Autonomously pack containers and trim idle GPU/CPU 24/7.</div>
+  </div>
+  <div class="diagram-step">
+    <div class="diagram-title">Step 3: Keep It Fast</div>
+    <div class="highlight-badge">Instana + AIOps</div>
+    <div class="diagram-sub"><strong>Prevent Outages & Lag</strong><br>1-second metric tracing and proactive node failure isolation.</div>
+  </div>
+</div>
+
+<h2>3. High-Impact Discovery Questions for Sales Calls</h2>
+
+<div class="question-box">
+  <strong>1. Unit Economics Question:</strong><br>
+  <em>"When a customer runs a prompt or API query on your app, do you know the exact infrastructure cost of that single request?"</em><br>
+  &rarr; <strong>Pitch:</strong> <strong>IBM Apptio</strong> (Connects Kubernetes/GPU costs to business metrics so they know their real margins).
+</div>
+
+<div class="question-box">
+  <strong>2. Resource Sizing & Waste Question:</strong><br>
+  <em>"How do your engineering teams resize your GPU and Kubernetes nodes today—is it manual guesswork or automated?"</em><br>
+  &rarr; <strong>Pitch:</strong> <strong>IBM Turbonomic</strong> (Autonomously rightsizes resources in real-time, eliminating 20-35% cloud waste with zero downtime).
+</div>
+
+<div class="question-box">
+  <strong>3. Latency & User Experience Question:</strong><br>
+  <em>"When an AI response slows down, how fast can your team pinpoint if it's the model, the database, or an API gateway?"</em><br>
+  &rarr; <strong>Pitch:</strong> <strong>IBM Instana</strong> (1-second metrics and 100% trace sampling across every microservice and LLM tier).
+</div>
+
+<div class="question-box">
+  <strong>4. Multi-Cloud Commitments Question:</strong><br>
+  <em>"Did your company sign large multi-year commitments with AWS, Azure, or GCP? Are you tracking burn rates to avoid on-demand penalties?"</em><br>
+  &rarr; <strong>Pitch:</strong> <strong>IBM Apptio Cloudability</strong> (Continuous commitment planning and discount arbitrage).
+</div>
+
+<h2>4. The Solution Consultant Cheat Sheet</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Plain-English Pitch</th>
+      <th>The "Before" Pain</th>
+      <th>The "After" Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IBM Turbonomic</strong></td>
+      <td><strong>Autopilot for cloud & GPU clusters</strong></td>
+      <td>Engineers manually guess instance sizes; clusters sit 70% idle "just in case".</td>
+      <td>Software dynamically scales and bin-packs containers, cutting cloud waste by 20–35%.</td>
+    </tr>
+    <tr>
+      <td><strong>IBM Apptio</strong></td>
+      <td><strong>Financial control tower for AI spend</strong></td>
+      <td>CFO receives a surprise multi-million dollar AWS/Azure bill with no breakdown.</td>
+      <td>Real-time visibility into cost per token, per model, and per customer contract.</td>
+    </tr>
+    <tr>
+      <td><strong>IBM Instana</strong></td>
+      <td><strong>Live X-ray for AI microservices</strong></td>
+      <td>AI latency spikes, black-box microservices, teams finger-pointing during slowdowns.</td>
+      <td>1-second metric resolution showing exact bottlenecks across tokenizers, APIs, and GPUs.</td>
+    </tr>
+    <tr>
+      <td><strong>IBM Cloud Pak for AIOps</strong></td>
+      <td><strong>Crash prevention for compute clusters</strong></td>
+      <td>Silent hardware/network node faults crash multi-day GPU training/inference runs.</td>
+      <td>Predicts node degradation, cordons faulty hardware, and prevents lost compute hours.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  IBM Automation Sales Enablement • Proactive Client Playbook
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Automation &amp; FinOps — IBM Product Portfolio</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.6;color:#1f2328;display:flex;flex-direction:column;background:#eef1f7;}
+
+/* ── Keyframes ── */
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ── Header ── */
+.header{
+  background:linear-gradient(135deg,#0a1a35 0%,#0f2547 45%,#162d5c 100%);
+  color:#fff;padding:18px 28px 0;flex-shrink:0;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.35);
+}
+.header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 10% 40%,rgba(124,92,216,.18) 0%,transparent 70%),
+             radial-gradient(ellipse 60% 80% at 90% 20%,rgba(59,130,212,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.header-accent{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#7c5cd8,#3b82d4,#0e9fe0,#7c5cd8);
+  background-size:300% 100%;
+  animation:gradientShift 4s ease infinite;
+}
+.header-top{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap;position:relative;}
+.header-top h1{font-size:19px;font-weight:700;letter-spacing:-.3px;text-shadow:0 2px 8px rgba(0,0,0,.3);}
+.pillar-badge{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  padding:4px 13px;border-radius:20px;
+  background:linear-gradient(135deg,#7c5cd8,#9b7de8);
+  color:#fff;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(124,92,216,.5),0 1px 0 rgba(255,255,255,.15) inset;
+}
+.header-sub{font-size:12px;color:rgba(168,188,212,.85);margin-bottom:16px;position:relative;}
+
+/* ── Search + filter bar ── */
+.toolbar{
+  background:linear-gradient(180deg,#162b55 0%,#122348 100%);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:10px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);
+}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:340px;}
+.search-wrap input{
+  width:100%;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);border-radius:8px;
+  padding:7px 10px 7px 32px;font-size:12px;color:#fff;outline:none;
+  transition:all .2s;backdrop-filter:blur(4px);
+}
+.search-wrap input::placeholder{color:rgba(255,255,255,.4);}
+.search-wrap input:focus{background:rgba(255,255,255,.14);border-color:rgba(124,92,216,.7);box-shadow:0 0 0 3px rgba(124,92,216,.2);}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:13px;pointer-events:none;}
+.filter-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.filter-label{font-size:11px;color:rgba(255,255,255,.45);font-weight:600;white-space:nowrap;}
+.fc{
+  font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);
+  transition:all .18s;white-space:nowrap;
+}
+.fc:hover{background:rgba(255,255,255,.13);color:#fff;transform:translateY(-1px);}
+.fc.active{
+  background:linear-gradient(135deg,#7c5cd8,#9b7de8);
+  border-color:#7c5cd8;color:#fff;
+  box-shadow:0 2px 10px rgba(124,92,216,.5);
+  transform:translateY(-1px);
+}
+
+/* ── Workspace ── */
+.workspace{display:flex;flex:1;overflow:hidden;}
+
+/* ── Left panel ── */
+.left-panel{
+  width:272px;flex-shrink:0;
+  background:linear-gradient(180deg,#ffffff 0%,#fafbfd 100%);
+  border-right:1px solid rgba(0,0,0,.07);
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:2px 0 12px rgba(0,0,0,.06);
+  position:relative;z-index:2;
+}
+.lp-header{padding:13px 16px 10px;border-bottom:1px solid #edf0f5;flex-shrink:0;background:#fff;}
+.lp-pillar-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#8896a5;}
+.lp-count{font-size:12px;color:#374151;font-weight:600;margin-top:2px;}
+.product-list{flex:1;overflow-y:auto;padding:6px 0 12px;}
+.pli{
+  padding:9px 16px 9px 14px;font-size:13px;cursor:pointer;
+  border-left:3px solid transparent;color:#374151;
+  transition:all .16s;line-height:1.4;
+  position:relative;
+}
+.pli::after{
+  content:'›';position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  color:transparent;font-size:16px;font-weight:300;transition:all .16s;
+}
+.pli:hover{background:#f4f6fb;color:#1f2328;}
+.pli:hover::after{color:#cbd5e1;}
+.pli.active{
+  background:linear-gradient(90deg,rgba(var(--pcr),var(--pcg),var(--pcb),.08) 0%,rgba(var(--pcr),var(--pcg),var(--pcb),.03) 100%);
+  font-weight:600;
+  border-left-color:var(--pc,#7c5cd8);
+  color:var(--pc,#7c5cd8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(0,0,0,.04);
+}
+.pli.active::after{color:var(--pc,#7c5cd8);right:12px;}
+.pli-partner{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#d97706;background:#fef3c7;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:middle;}
+.no-results{padding:24px 16px;font-size:12px;color:#9ca3af;text-align:center;}
+.cat-group-label{
+  padding:12px 16px 3px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:#8896a5;border-top:1px solid #edf0f5;margin-top:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.cat-group-label:first-child{border-top:none;margin-top:0;}
+.cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* ── Right panel ── */
+.right-panel{flex:1;overflow-y:auto;padding:28px 32px 56px;background:#eef1f7;}
+.rp-inner{max-width:900px;animation:slideUp .28s ease;}
+
+/* ── Empty state ── */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:65vh;color:#a0aec0;gap:16px;
+}
+.empty-3d{
+  width:80px;height:80px;position:relative;
+  transform-style:preserve-3d;animation:float3d 5s ease-in-out infinite;
+}
+@keyframes float3d{
+  0%,100%{transform:rotateX(15deg) rotateY(-20deg) translateY(0)}
+  50%{transform:rotateX(15deg) rotateY(-20deg) translateY(-10px)}
+}
+.empty-state p{font-size:14px;color:#8896a5;font-weight:500;}
+.empty-hint{font-size:12px;color:#b0bcc8;}
+
+/* ── Product header area ── */
+.pd-hero{
+  background:linear-gradient(135deg,var(--col-a,#1a56a0) 0%,var(--col-b,#2563eb) 100%);
+  border-radius:14px;padding:22px 24px 18px;margin-bottom:18px;
+  position:relative;overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.1),
+             inset 0 1px 0 rgba(255,255,255,.15);
+}
+.pd-hero::before{
+  content:'';position:absolute;
+  top:-30px;right:-30px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.pd-hero::after{
+  content:'';position:absolute;
+  bottom:-20px;left:40px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.pd-name{font-size:20px;font-weight:700;color:#fff;line-height:1.3;text-shadow:0 2px 8px rgba(0,0,0,.2);}
+.pd-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.pd-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  padding:3px 11px;border-radius:20px;color:#fff;
+  background:rgba(255,255,255,.2);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 2px 6px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.2);
+  text-decoration:none;transition:all .15s;
+}
+.pd-badge:hover{background:rgba(255,255,255,.3);transform:translateY(-1px);}
+.pd-badge.partner{background:rgba(217,119,6,.7);}
+
+/* ── Product description ── */
+.product-desc{
+  font-size:13px;color:#374151;margin:0 0 20px;line-height:1.7;
+  padding:16px 18px;
+  background:#fff;border-radius:10px;
+  border-left:4px solid var(--col-a,#7c5cd8);
+  box-shadow:0 4px 16px rgba(0,0,0,.06),0 1px 4px rgba(0,0,0,.04),
+             inset 0 0 0 1px rgba(0,0,0,.04);
+  position:relative;
+}
+.product-desc::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:4px;
+  border-radius:4px 0 0 4px;
+}
+
+/* ── Solutions ── */
+.solutions-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;
+  color:#8896a5;margin-bottom:10px;padding-left:2px;display:flex;align-items:center;gap:6px;
+}
+.solutions-label::after{content:'';flex:1;height:1px;background:#e5e7eb;}
+.solutions-grid{display:flex;flex-direction:column;gap:10px;}
+
+/* ── Solution card ── */
+.solution-item{
+  background:#fff;border-radius:12px;
+  border-left:4px solid var(--sc,#7c5cd8);
+  box-shadow:0 2px 8px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);
+  overflow:hidden;
+  transition:box-shadow .2s,transform .2s;
+  transform-style:preserve-3d;
+  perspective:600px;
+}
+.solution-item:hover{
+  box-shadow:0 8px 28px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.06);
+  transform:translateY(-2px);
+}
+.sol-header{
+  padding:13px 16px 11px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  user-select:none;
+}
+.solution-name{font-size:13px;font-weight:700;color:var(--sc,#7c5cd8);line-height:1.3;flex:1;}
+.sol-docs-link{font-size:10px;font-weight:500;color:var(--sc,#7c5cd8);opacity:.7;text-decoration:none;margin-left:8px;white-space:nowrap;transition:opacity .15s;}
+.sol-docs-link:hover{opacity:1;}
+.sol-toggle{
+  flex-shrink:0;margin-left:10px;width:20px;height:20px;border-radius:50%;
+  background:rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#6b7280;transition:all .2s;
+}
+.sol-toggle.open{background:var(--sc,#7c5cd8);color:#fff;transform:rotate(180deg);}
+.sol-body{padding:0 16px 14px;display:none;}
+.sol-body.open{display:block;animation:fadeIn .18s ease;}
+.solution-desc{font-size:13px;color:#374151;margin-bottom:8px;line-height:1.6;}
+.meta-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
+.meta-chip{
+  font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.chip-why{background:#dbeafe;color:#1d4ed8;}
+.chip-who{background:#d1fae5;color:#065f46;}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#8896a5;margin-bottom:4px;margin-top:12px;}
+
+/* ── Example cards ── */
+.examples{margin-top:6px;display:flex;flex-direction:column;gap:7px;}
+.example-item{
+  font-size:12px;color:#1f2328;
+  background:linear-gradient(135deg,#f8f9fc 0%,#f4f6fb 100%);
+  border:1px solid #e8ecf2;border-radius:8px;
+  padding:10px 12px 10px 28px;position:relative;line-height:1.6;
+  box-shadow:0 2px 6px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.9);
+  transition:box-shadow .18s,transform .18s;
+}
+.example-item:hover{
+  box-shadow:0 4px 14px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.9);
+  transform:translateX(2px);
+}
+.example-item::before{
+  content:"▸";position:absolute;left:10px;top:10px;
+  color:var(--sc,#7c5cd8);font-size:12px;
+}
+
+/* ── Sales resources ── */
+.sales-resources{
+  margin-top:14px;background:#fff;border-radius:12px;
+  padding:15px 18px;
+  border-left:4px solid #e2e8f0;
+  box-shadow:0 2px 8px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.04);
+}
+.sales-resources-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+  color:#8896a5;margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.sales-resources-label::after{content:'';flex:1;height:1px;background:#e5e7eb;}
+.sales-links{display:flex;flex-direction:column;gap:7px;}
+.sales-link-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;}
+.sales-link-type{
+  flex-shrink:0;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.slt-product{background:#dbeafe;color:#1d4ed8;}
+.slt-seismic{background:#fef9c3;color:#854d0e;}
+.slt-announce{background:#f0fdf4;color:#166534;}
+.slt-w3{background:#fdf2f8;color:#86198f;}
+.slt-support{background:#fef3c7;color:#92400e;}
+.sales-link-row a{color:#374151;text-decoration:none;line-height:1.5;word-break:break-all;transition:color .15s;}
+.sales-link-row a:hover{text-decoration:underline;color:#3b82d4;}
+
+/* ── Footer ── */
+.app-footer{flex-shrink:0;text-align:center;font-size:11px;color:#9ca3af;border-top:1px solid #e5e7eb;padding:8px;background:#fff;}
+
+/* ── Scrollbar ── */
+.product-list::-webkit-scrollbar,.right-panel::-webkit-scrollbar{width:5px;}
+.product-list::-webkit-scrollbar-track,.right-panel::-webkit-scrollbar-track{background:transparent;}
+.product-list::-webkit-scrollbar-thumb,.right-panel::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:4px;}
+.product-list::-webkit-scrollbar-thumb:hover,.right-panel::-webkit-scrollbar-thumb:hover{background:#a8b4c8;}
+
+/* ── Print ── */
+@media print{
+  html,body{height:auto;overflow:visible;}
+  .workspace{display:block;overflow:visible;height:auto;}
+  .left-panel,.toolbar{display:none;}
+  .right-panel{overflow:visible;height:auto;padding:0;}
+  .header{background:#0f2547 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .pd-hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .solution-item,.example-item,.product-desc{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid;}
+  .sol-body{display:block !important;}
+  .app-footer{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" style="flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))">
+      <rect width="32" height="32" rx="7" fill="rgba(255,255,255,.12)"/>
+      <rect x="6" y="10" width="20" height="3" rx="1.5" fill="#fff" opacity=".9"/>
+      <rect x="6" y="15" width="14" height="3" rx="1.5" fill="#fff" opacity=".7"/>
+      <rect x="6" y="20" width="17" height="3" rx="1.5" fill="#fff" opacity=".5"/>
+    </svg>
+    <h1>IBM Automation Product Portfolio</h1>
+    <span class="pillar-badge">IT Automation &amp; FinOps</span>
+  </div>
+  <div class="header-sub">Select a product &nbsp;·&nbsp; explore solutions &nbsp;·&nbsp; real-world examples</div>
+  <div class="header-accent"></div>
+</div>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="Search products, solutions…" autocomplete="off">
+  </div>
+  <div class="filter-chips">
+    <span class="filter-label">Filter:</span>
+    <button class="fc all active" data-cat="all">All</button>
+    <button class="fc cat" data-cat="Observability">Observability</button>
+    <button class="fc cat" data-cat="FinOps">FinOps</button>
+    <button class="fc cat" data-cat="AIOps">AIOps &amp; Ops</button>
+    <button class="fc cat" data-cat="Portfolio">Strategic Portfolio</button>
+    <button class="fc cat" data-cat="Automation">Automation</button>
+  </div>
+</div>
+
+<div class="workspace">
+  <div class="left-panel">
+    <div class="lp-header">
+      <div class="lp-pillar-name">IT Automation &amp; FinOps</div>
+      <div class="lp-count" id="lpCount"></div>
+    </div>
+    <div class="product-list" id="productList"></div>
+  </div>
+  <div class="right-panel" id="rp">
+    <div class="rp-inner" id="rpInner">
+      <div class="empty-state">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" style="filter:drop-shadow(0 8px 20px rgba(124,92,216,.15))">
+          <!-- 3D box illustration -->
+          <g transform="translate(36,36)">
+            <!-- back top face -->
+            <polygon points="0,-22 19,-11 0,0 -19,-11" fill="#e8ecf4" stroke="#c8d0e0" stroke-width="1"/>
+            <!-- right face -->
+            <polygon points="19,-11 19,11 0,22 0,0" fill="#d0d8ea" stroke="#c0c8da" stroke-width="1"/>
+            <!-- left face -->
+            <polygon points="-19,-11 -19,11 0,22 0,0" fill="#dce4f0" stroke="#c8d0e0" stroke-width="1"/>
+            <!-- top face highlight -->
+            <polygon points="0,-22 19,-11 0,0 -19,-11" fill="url(#topGrad)" opacity=".5"/>
+            <!-- document lines on top face -->
+            <line x1="-8" y1="-10" x2="8" y2="-17" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-8" y1="-7" x2="5" y2="-13.5" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-8" y1="-4" x2="2" y2="-10" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <defs>
+            <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fff" stop-opacity=".8"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <p>Select a product from the left to begin</p>
+        <span class="empty-hint">14 products across Observability, FinOps, AIOps, Strategic Portfolio Management &amp; Automation</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="app-footer">Owner: Adil Malvankar &nbsp;|&nbsp; adil.malvankar@ibm.com &nbsp;·&nbsp; IBM IT Automation &amp; FinOps CSE</div>
+
+<script>
+const PRODUCTS = [
+  {
+    name: `IBM Instana Observability`,
+    cat: `Observability`,
+    partner: false,
+    link: `https://www.ibm.com/products/instana`,
+    salesLinks: [
+      { type: `product`, label: `IBM Instana, Product Page (ibm.com)`, url: `https://www.ibm.com/products/instana` },
+      { type: `product`, label: `Instana Supported Technologies`, url: `https://www.ibm.com/products/instana/supported-technologies` },
+      { type: `product`, label: `Instana Mainframe Monitoring`, url: `https://www.ibm.com/products/instana/mainframe-monitoring` },
+      { type: `seismic`, label: `Instana Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DC3FqhbFPPcCV87XqWD8hgR7JffP` }
+    ],
+    desc: `IBM Instana Observability is an autonomous, full-stack observability platform that automatically discovers, instruments, and monitors every component across modern and traditional application environments, covering the three pillars of observability: metrics, distributed traces, and logs, in a single, unified platform. Instana's single agent auto-detects <strong>300+ technologies</strong> with source-code level visibility across <strong>14 languages</strong>, and begins collecting data in under 5 minutes with zero code changes or agent restarts. Every single request is traced at <strong>1-second granularity</strong>, 100% sampling, no statistical sampling, with live alert delivery in under 3 seconds. IBM named a <strong>Leader in the 2025 Gartner® Magic Quadrant™ for Observability Platforms</strong>. Customer data shows: 69% reduction in MTTD, 52% reduction in MTTR, and 86% reduction in instrumentation effort. Instana is unique in being the only enterprise observability platform with native mainframe monitoring (IBM Z / z/OS via OMEGAMON Data Provider, CICS, IMS, Db2, MQ) alongside cloud-native environments, making it especially relevant for hybrid enterprises running workloads on both Z and cloud.`,
+    solutions: [
+      {
+        name: `Full-Stack APM &amp; Distributed Tracing (100% Sampling)`,
+        desc: `Automatically instruments every application service across 300+ supported technologies and captures every single trace end-to-end, not a statistical sample. The Dynamic Graph continuously maps all service-to-service calls, database queries, and external dependencies in real time, so when latency or errors occur, the exact call chain and root cause are immediately visible without manual correlation.`,
+        why: [`100% trace capture, no sampling blind spots`, `Zero-configuration instrumentation, no code changes`, `Sub-minute incident detection and root cause identification`],
+        who: [`SRE / Platform Engineering`, `Development Teams`, `IT Operations / NOC`],
+        examples: [
+          `<strong>Online Retailer (Checkout Slowdown on Black Friday):</strong> During peak trading, checkout started running slow, but only for a tiny fraction of customers. Because Instana captures every single transaction (not a statistical sample like most monitoring tools), the team pinpointed the exact cause, a slow database query from a release 2 hours earlier, in 90 seconds. <em>A typical monitoring tool sampling 1% of traffic would have missed this entirely.</em> The fix was deployed before cart abandonment rates climbed. <strong>Checkout restored at peak; no revenue lost from the incident.</strong>`,
+          `<strong>Insurance Company (New Service Causing Silent Failures):</strong> After a routine software deployment, a hidden memory problem began quietly building in one service. Instead of the 30+ separate alarms their old tool would have fired, Instana surfaced a single clear alert, with no manual setup needed, because it automatically detects and monitors new services the moment they are deployed. <em>The team fixed the issue before any customer experienced a delay, something their previous tooling would have caught only after service degraded.</em> <strong>Customer-facing SLA preserved; zero instrumentation effort required.</strong>`
+        ]
+      },
+      {
+        name: `Kubernetes &amp; Cloud Infrastructure Monitoring`,
+        desc: `Continuously monitors Kubernetes clusters, nodes, namespaces, pods, and cloud services (AWS, Azure, GCP, IBM Cloud) with automatic topology mapping and correlated alert grouping. Instana's Dynamic Graph auto-discovers every new pod, deployment, and service as it is created, no manual dashboard configuration required. Infrastructure health is always correlated to application performance impact.`,
+        why: [`Instant visibility into Kubernetes complexity without manual setup`, `Correlate infrastructure events to application SLA impact`, `Auto-discovers new services and pods as they deploy`],
+        who: [`Cloud / K8s Platform Teams`, `SRE`, `IT Operations / NOC`],
+        examples: [
+          `<strong>Global Bank (Payment Errors Traced to Infrastructure):</strong> A bank's payment API started throwing errors, and four separate monitoring tools each fired their own alarms, giving the team 40 alerts to sift through to find what was actually wrong. Instana automatically mapped the connection between an infrastructure event and the payment error rate, presenting the team with a single correlated incident and the root cause. <em>Time to triage: seconds, not the 25 minutes their previous toolset required.</em> <strong>Payment service restored; alert noise cut from 40 alarms to 1 actionable incident.</strong>`,
+          `<strong>Cloud Analytics Provider (One Customer Slowing Down Everyone Else):</strong> One customer's overnight batch job was quietly consuming so much shared infrastructure that it was degrading performance for every other customer on the platform, but the team had no way to see who was responsible. Instana identified the culprit workload and measured exactly how much resource it was consuming. The team applied limits within 20 minutes, restoring normal performance for all customers. <strong>Platform SLAs restored for all tenants within 20 minutes, with no guesswork.</strong>`
+        ]
+      },
+      {
+        name: `Mainframe Observability (IBM Z / CICS / IMS / Db2)`,
+        desc: `The only enterprise observability platform with native, agent-based monitoring of IBM Z mainframe workloads, covering z/OS, CICS transaction servers, IMS databases, Db2, and MQ on Z, and correlating mainframe transaction performance with dependent distributed and cloud services in a single unified view.`,
+        why: [`Unified observability across mainframe and cloud, no separate tools`, `End-to-end distributed traces that span Z and cloud`, `Reduce mainframe MIPS waste by identifying inefficient transactions`],
+        who: [`Mainframe / Z Platform Teams`, `SRE (hybrid estates)`, `Core Banking / Insurance IT`, `IT Operations`],
+        examples: [
+          `<strong>Major Retail Bank (Mobile App Slowness Traced Across Mainframe and Cloud):</strong> Customers were reporting slow account loading on the mobile app, but the problem spanned two completely separate teams, one running cloud services, one running the mainframe. Neither team could see across both systems. Instana provides a single end-to-end trace from the mobile app all the way through to the mainframe transaction, instantly revealing that a recent mainframe configuration change was adding 800ms to every account query. <strong>Problem identified in minutes; a cross-team investigation that previously took a full day was replaced by a single screen.</strong>`,
+          `<strong>Large Insurer (Reducing a $50M+ Mainframe Bill):</strong> An insurer's mainframe software bill exceeded $50M/year, but IT had no way to see which specific business transactions were driving that cost, so there was nothing to target for savings. Instana gave the team their first-ever view of exactly which transactions consumed the most mainframe compute. Tuning three high-frequency transactions reduced peak consumption by 12%. <strong>Annual saving: $1.4M in mainframe licence charges, a result IT could present directly to the CFO.</strong>`
+        ]
+      },
+      {
+        name: `AI-Powered Smart Alerting &amp; Automated Root Cause Analysis`,
+        desc: `Instana's built-in AI continuously baselines every metric for every entity and raises smart alerts only when behaviour deviates from normal, eliminating threshold-based alert storms. When an incident is detected, Instana's automated root cause analysis traverses the Dynamic Graph to identify the triggering entity and presents a single, prioritised incident with a probable root cause.`,
+        why: [`Eliminate threshold-based alert fatigue`, `Automated root cause, not just symptom detection`, `Reduce mean time to resolve (MTTR) by hours`],
+        who: [`On-Call SRE / DevOps Engineers`, `NOC / Operations`, `Engineering Management`],
+        examples: [
+          `<strong>Telecoms Provider (800 Alerts a Night, Team Can't Keep Up):</strong> The on-call team was receiving over 800 alarm notifications every night, so many that real problems were getting buried and ignored. After deploying Instana's AI-driven alerting (which learns what "normal" looks like for each service and only raises alerts when something genuinely deviates), the nightly queue dropped to 12 meaningful incidents. When a payment service degraded at 2am, root cause was identified in under 2 minutes. <strong>Resolution time dropped from 45 minutes to 8 minutes, the team stopped firefighting noise and started catching real problems.</strong>`,
+          `<strong>Healthcare Platform (Booking Service Timing Out, No One Knows Why):</strong> Patients booking appointments intermittently hit timeouts, with no error message and nothing obvious in the logs to explain why. Instana's root cause engine traced the issue to a third-party text message notification service that was responding in 8 seconds instead of the expected fraction of a second, a connection nobody had thought to check. Root cause surfaced in under 60 seconds; the team disabled the SMS step as a temporary fix and restored full service in 4 minutes. <strong>Patient-facing downtime resolved in 4 minutes; a problem that had stumped the team for days was closed in one investigation.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Turbonomic (Resource Management)`,
+    cat: `FinOps`,
+    partner: false,
+    link: `https://www.ibm.com/products/turbonomic`,
+    salesLinks: [
+      { type: `product`, label: `IBM Turbonomic, Product Page (ibm.com)`, url: `https://www.ibm.com/products/turbonomic` },
+      { type: `product`, label: `Turbonomic Differentiators (ibm.com)`, url: `https://www.ibm.com/products/turbonomic/differentiators` },
+      { type: `seismic`, label: `Turbonomic Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCJ2bCQ7FPH448fJ6TWjVcmc2MJ3` },
+      { type: `seismic`, label: `Turbonomic Forrester TEI Report (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCBT2BFHDM6898WBdcQDmmTpBMdV` },
+      { type: `w3`, label: `Turbonomic UST w3 Hub (w3 Internal)`, url: `https://w3.ibm.com/w3publisher/ust-turbonomic` }
+    ],
+    desc: `IBM Turbonomic is an AI-powered application resource management (ARM) platform that continuously analyses workload demand and automatically assures application performance while minimising compute costs, across on-premise, cloud, and Kubernetes environments. The Forrester TEI report shows <strong>247% ROI over 3 years</strong>, <strong>35% public cloud cost savings</strong>, <strong>75% fewer performance tickets</strong>, and payback in under 6 months. Turbonomic uses a market-based economic model that assigns virtual currency across all infrastructure tiers, enabling closed-loop, policy-driven resource management decisions at machine speed.`,
+    solutions: [
+      {
+        name: `Automated Cloud Resource Optimisation`,
+        desc: `Analyses real-time application demand and automatically right-sizes VMs, containers, and cloud instances, eliminating over-provisioning while preventing performance degradation. Turbonomic's closed-loop automation executes policy-compliant scaling actions (pod scaling, VM placement, RI purchases) without manual intervention, continuously matching supply to demand across VMware, AWS, Azure, GCP, OpenShift, and Kubernetes.`,
+        why: [`35% public cloud cost savings (Forrester TEI)`, `Guarantee application performance SLAs`, `75% fewer performance tickets`],
+        who: [`FinOps / Cloud Economics`, `SRE / Platform`, `CIO / CFO`],
+        examples: [
+          `<strong>Insurance Company (Paying for Compute You Don't Need):</strong> An insurer was running 4,000 servers across on-premise data centres and the cloud, most of them sized for a peak workload years ago and never reviewed. Turbonomic continuously analyses actual application demand and automatically identified 800 servers that were safe to downsize, executing the changes during quiet periods without any manual approval process. <strong>$1.8M saved annually, with zero application performance issues throughout.</strong>`,
+          `<strong>Retail Bank (Customers Experiencing Slowdowns Before IT Can React):</strong> The bank's digital banking platform used a standard automated scaling tool that only kicks in after performance has already degraded, by then, customers were already experiencing slow responses. Turbonomic predicts rising demand from transaction trends and scales capacity in advance, <em>before</em> any customer impact. During a high-traffic period, extra capacity was added 4 minutes ahead of when it was needed, compared to the previous approach that caused 8 minutes of degraded checkout on every major traffic event. <strong>Zero customer-facing performance incidents during peak traffic periods.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Concert Platform`,
+    cat: `AIOps`,
+    partner: false,
+    link: `https://www.ibm.com/products/concert`,
+    salesLinks: [
+      { type: `product`, label: `IBM Concert, Product Page (ibm.com)`, url: `https://www.ibm.com/products/concert` },
+      { type: `announce`, label: `Announcement: From Insight to Action, Closing the Gap in Modern IT Operations`, url: `https://www.ibm.com/new/announcements/from-insight-to-action-closing-the-gap-in-modern-it-operations` },
+      { type: `seismic`, label: `Concert Platform Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCm6dcDJJgW2CGfP7F4V7jVbMTVP` },
+      { type: `seismic`, label: `Concert Operate / Cloud Pak for AIOps (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DC6pTdMQmhD4TGh2XjJ9fmH3TVMP` },
+      { type: `support`, label: `Cloud Pak for AIOps Support Page`, url: `https://www.ibm.com/mysupport/s/topic/0TO3p000000FghFGAS/cloud-pak-for-aiops?language=en_US` }
+    ],
+    desc: `IBM Concert is an <strong>agentic IT Ops platform</strong> that creates an adaptable, unified operational layer across your environment. It connects signals, generates shared context, and coordinates action across teams and tools, so your entire system operates as one. With cross-domain intelligence, Concert helps reduce risk, maintain business continuity, improve performance, and optimise cost across the stack. Powered by agentic AI (built on watsonx), it surfaces what matters, prioritises by business impact, and orchestrates action through governed workflows with human-in-the-loop approval. Delivered as six modular capabilities (Observe, Optimize, Operate, Protect, Resilience, Workflows), organisations can start where they see the most value and expand incrementally. Concert already integrates with <strong>over 250 vendors</strong>, and additional integrations can be added within 15 business days.`,
+    solutions: [
+      {
+        name: `Concert Observe, Full-Stack Observability`,
+        link: `https://www.ibm.com/products/concert/observe`,
+        desc: `Real-time, full-stack visibility across applications, infrastructure, networks, and AI/LLM workloads, powered by IBM Instana and IBM SevOne. Covers: application observability, infrastructure monitoring, database observability, digital experience monitoring, synthetic monitoring, and AI/LLM observability (prompts, responses, latency). Correlates signals across logs, metrics, events, and alerts to identify likely root causes and explain what happened and why, then guides teams through resolution via recommended actions and proposed fixes coordinated through existing development workflows.`,
+        why: [`Reduce MTTR with AI-correlated root cause identification`, `Replace fragmented observability dashboards with a single operational layer`, `Agentic incident response with human-in-the-loop governance`],
+        who: [`Site Reliability Engineering`, `IT Operations`, `Network Operations`],
+        examples: [
+          `<strong>Retail Bank (Payment Outage, Three Teams, No Shared View):</strong> When a payments service degraded, alarms fired across application, network, and infrastructure tools simultaneously, giving the on-call team 40 fragmented alerts from different systems with no clear picture of what was actually wrong. Concert Observe pulled all those signals into a single AI-correlated view, identified the root cause (a saturated network path) in under 2 minutes, generated a proposed fix, and routed it for the engineer's approval via ServiceNow, one click, full audit trail. <strong>Resolution time cut from 45 minutes to 8 minutes; the on-call engineer received one clear action request instead of 40 alarms.</strong>`,
+          `<strong>Telecoms Provider (IT Incident Needing Three Teams to Diagnose):</strong> When customer-facing API errors spiked, resolving the incident required three separate teams, network, application, and infrastructure, each investigating in their own tools with no shared context. It took a 4-hour war room before anyone could pinpoint the cause. After deploying Concert Observe, the same type of incident was resolved by a single engineer: Concert presented one AI-curated timeline showing that a configuration change made earlier that day was causing the API errors. <strong>A 3-team, 4-hour investigation became a same-shift, single-engineer resolution.</strong>`
+        ]
+      },
+      {
+        name: `Concert Optimize, Performance &amp; Cost Optimisation`,
+        link: `https://www.ibm.com/products/concert/optimize`,
+        desc: `Ongoing performance and cost optimisation across compute, cloud, and GPU infrastructure, powered by IBM Turbonomic. Connects application demand to infrastructure usage to make it clear what is driving costs (including GPU costs for AI workloads), where resource constraints may arise, and how resource decisions affect application performance.`,
+        why: [`Optimise AI/GPU infrastructure costs without sacrificing performance`, `Proactive resource scaling before SLAs are breached`, `Continuous cloud cost right-sizing across hybrid environments`],
+        who: [`FinOps / Cloud Economics`, `AI/ML Platform Teams`, `SRE / Platform Engineering`],
+        examples: [
+          `<strong>Bank (Cloud Costs Growing, No One Reviewing Them):</strong> A bank's cloud cost team was reviewing server utilisation reports manually once a month, by the time they acted, over-provisioning had persisted for weeks and the savings opportunity had shrunk. Concert Optimize (powered by Turbonomic) continuously monitors actual workload demand and automatically adjusts server sizes within agreed policy limits, with no manual effort required. <strong>Within 90 days: $2.4M annual cost reduction, zero application performance issues, and the team's monthly manual review effort dropped from 40 hours to near-zero.</strong>`,
+          `<strong>Enterprise (AI Training Servers Sitting Idle, Costing Millions):</strong> An organisation running internal AI workloads had invested heavily in specialist GPU servers (used for AI model training), but had no visibility into whether those servers were actually being used or sitting idle between jobs. Concert Optimize revealed that 40% of GPU computing hours were idle between training runs and automatically scheduled workloads to consolidate usage. <strong>$2.1M saved annually in AI infrastructure costs, without delaying a single training job.</strong> <em>As organisations build internal AI platforms, uncontrolled GPU spend is fast becoming the next cloud cost crisis.</em>`
+        ]
+      },
+      {
+        name: `Concert Operate, Unified Incident Management`,
+        link: `https://www.ibm.com/mysupport/s/topic/0TO3p000000FghFGAS/cloud-pak-for-aiops?language=en_US`,
+        desc: `Unified incident detection, investigation, and response, powered by IBM Cloud Pak for AIOps (now Concert Operate). Brings together event correlation, noise reduction, and AI-driven root cause analysis into a single operations layer, with agentic workflows that coordinate investigation and execution across the tools teams already use, keeping people in control with full auditability.`,
+        why: [`Reduce alert noise and accelerate incident triage`, `Agentic workflows execute remediation steps with human approval`, `Single operations layer across hybrid and multi-cloud environments`],
+        who: [`IT Operations / NOC`, `SRE`, `CTO / VP Engineering`],
+        examples: [
+          `<strong>Global Bank (12,000 Alerts a Day, Operations Team Overwhelmed):</strong> A bank's operations centre was receiving 12,000 alarms per day across its IT environment, analysts were overwhelmed, high-priority incidents were getting delayed, and the team had no way to distinguish noise from genuine emergencies. Concert Operate uses AI to group related alarms and filter out the noise, reducing the actionable queue to 180 incidents per day (<strong>98% noise reduction</strong>). It then automatically handles first-response actions for 60% of those incidents, restarting services, clearing queues, with a full audit trail and no human needed. <strong>Overnight shift headcount requirement reduced by 2 people; critical incidents now get immediate attention instead of being buried.</strong>`,
+          `<strong>Insurance Group (15 Minutes to Start Working a Critical Outage):</strong> When a critical system went down, the on-call engineer had to manually search across four different tools, the ticketing system, the alerting tool, the incident management platform, and the deployment tracker, before they could even identify what had failed and who to call. That was taking 15+ minutes before anyone was actually working the problem. Concert Operate's AI agent does all of that automatically: correlates the event, identifies the failing component, raises a priority ticket, pages the right engineer, and prepares a proposed fix, <strong>all in under 90 seconds</strong>. The engineer's first action is reviewing a ready-made resolution proposal, not starting a blank investigation.`
+        ]
+      },
+      {
+        name: `Concert Protect, AI-Driven Security &amp; Vulnerability Management`,
+        link: `https://www.ibm.com/products/concert/protect`,
+        desc: `AI-driven vulnerability and risk management that identifies, prioritises, and can generate automatic remediations, fixing vulnerable code or patching OS, middleware, packages, and container images. Positions organisations to shift left for security across the SDLC, integrating risk context from observability and operations to prioritise CVEs by actual business impact rather than CVSS score alone.`,
+        why: [`Prioritise CVEs by real business impact, not just severity score`, `AI-generated remediations accelerate patch cycles`, `Shift-left security integrated across the SDLC`],
+        who: [`Security Operations (SecOps)`, `DevSecOps / Platform Engineering`, `CISO / Risk &amp; Compliance`],
+        examples: [
+          `<strong>Bank (Security Team Drowning in Vulnerability Alerts):</strong> A bank's security team was being flooded with security vulnerability alerts (CVEs, known software weaknesses) across hundreds of applications, all ranked by technical severity score with no sense of which ones actually posed business risk. Concert Protect adds business context to each alert, is this application customer-facing? revenue-critical?, and identified that three critical applications shared the same vulnerability and all had a scheduled maintenance window on the same day, a compounded risk no other tool had flagged. Concert automatically generated a proposed patch for each. <strong>Security exposure resolved in hours instead of the typical 3-week patch cycle.</strong>`,
+          `<strong>Retailer (4,000 Security Vulnerabilities, Team Paralysed):</strong> A retailer's security team had 4,000 open security vulnerabilities (CVEs) across its technology estate. With every one treated as equal priority, the team had no idea where to start and nothing was getting fixed. Concert Protect applied business-context scoring and determined that only 120 of the 4,000 vulnerabilities affected customer-facing, revenue-generating services, the only ones that actually mattered in practice. The team fixed those 120 first. <strong>85% reduction in actual security exposure; average time to patch critical vulnerabilities cut from 47 days to 9 days, same team, no extra headcount.</strong>`
+        ]
+      },
+      {
+        name: `Concert Resilience, Proactive Reliability Management`,
+        link: `https://www.ibm.com/products/concert/resilience`,
+        desc: `Continuously measures and improves the resilience of applications and environments across <strong>six resilience pillars</strong>: Security (vulnerabilities &amp; misconfigurations), Availability (service reachability), Recoverability (MTTD / MTTR / RTO / RPO), Maintainability (patching &amp; change management), Observability (monitoring coverage completeness), and Scalability (demand-handling capacity). Generates AI-driven, prioritised remediation recommendations and connects to Concert Workflows for automated execution. IBM's own SRE team case study: 62% reduction in person-days per enterprise-wide resilience posture evaluation.`,
+        why: [`Shift from reactive to proactive operations`, `Measure and improve service resilience across 6 NFR pillars`, `AI-prioritised remediation connected directly to Concert Workflows`],
+        who: [`SRE / Reliability Engineering`, `Enterprise Architecture`, `CTO / VP Engineering`],
+        examples: [
+          `<strong>Payments Company (Hidden Single Point of Failure Before Peak Season):</strong> A payments company was preparing for peak trading season but had no structured way to assess whether its systems were resilient enough to handle the load. Concert Resilience automatically scored every service across six reliability dimensions and flagged that one shared login service, which 80% of all revenue transactions depended on, had no backup instance and would fail if it went down. The team had no idea this risk existed. They added a backup instance before the peak period. <strong>No login-related outage during peak season, avoiding a repeat of the prior year's incident that cost $4M in lost transactions.</strong>`,
+          `<strong>Hospital Network (Proving Readiness Before Expansion):</strong> A hospital network needed to demonstrate that its 15 patient-facing digital services were resilient enough before a planned capacity expansion, but manually assessing each one would have taken weeks. Concert Resilience generated a scored readiness report for all 15 services in hours, identifying that 3 services would fail under increased load due to a shared database bottleneck. The issue was fixed before the expansion went live. <strong>All 3 services passed resilience thresholds; the capacity expansion proceeded without a single service degradation incident.</strong>`
+        ]
+      },
+      {
+        name: `Concert Workflows, Low-Code Orchestration &amp; Automation`,
+        link: `https://www.ibm.com/products/concert/workflows`,
+        desc: `Low-code workflow orchestration and automation across teams, tools, and environments, enabling operations, security, and engineering teams to build automated runbooks, approval flows, and remediation pipelines without deep coding expertise. Connects Concert's intelligence to action in existing toolchains (ServiceNow, Jira, GitHub, Slack, and more).`,
+        why: [`Automate repetitive operational runbooks without custom scripting`, `Connect Concert intelligence to existing ITSM and DevOps toolchains`, `Enforce consistent approval and governance across remediation actions`],
+        who: [`IT Operations / NOC`, `DevOps / Platform Engineering`, `SecOps`],
+        examples: [
+          `<strong>Energy Utility (35-Minute Crisis Response Compressed to 5 Minutes):</strong> When the company's primary database started to fail, the response required coordinating a database specialist, an operations engineer, a support ticket, and a Slack conversation, 35 minutes of scrambling before any fix could be applied. Using Concert Workflows, the team built an automated response procedure in a single day, with no coding required. Now when a database problem is detected, the workflow automatically alerts the on-call specialist, raises a ticket, takes a safety snapshot, and waits for a single approval click. <strong>The 35-minute multi-person scramble compresses to under 5 minutes, with a full audit trail automatically recorded.</strong>`,
+          `<strong>Government Agency (Can't Automate Without Approval Records):</strong> A government IT department wanted to use automated fixes for IT incidents but was blocked by a strict change management policy, every production change needed dual sign-off from two approvers with a documented audit trail. Without that, automation was off-limits. Concert Workflows built approval gates directly into every automated action: each proposed fix is routed to two approvers, with timestamps, names, and decision rationale captured automatically. <strong>The department passed its change management audit; automated resolution of IT incidents increased from 0% to 55% of incident types within 6 months</strong>, because teams were finally confident the governance requirement was being met.`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Apptio`,
+    cat: `FinOps`,
+    partner: false,
+    link: `https://www.apptio.com`,
+    salesLinks: [
+      { type: `product`, label: `Apptio, Product Home (apptio.com)`, url: `https://www.apptio.com` },
+      { type: `seismic`, label: `Apptio Sales Deck (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCdFhT3QCPHBf822FCVJBJb2HmhG` },
+      { type: `seismic`, label: `Apptio Additional Sales Content (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCpFfH94GF8fpGMBBMhCCCmQQHHd` }
+    ],
+    desc: `IBM Apptio is the industry-leading Technology Business Management (TBM) platform, a suite of solutions that give IT, Finance, and business leaders full transparency into IT costs, enabling them to model, allocate, plan, bill, and benchmark technology spend. Acquired by IBM in 2023, Apptio is the de-facto standard for IT financial management used by hundreds of enterprises and government organisations globally.`,
+    solutions: [
+      {
+        name: `Apptio Costing (IT Cost Transparency)`,
+        desc: `The foundation of the Apptio platform. Models and allocates the full IT cost base, infrastructure, labour, licences, cloud, across a TBM taxonomy of towers, services, and business consumers. Gives the CIO and IT Finance a single, defensible source of truth for what IT costs and what drives those costs.`,
+        why: [`Single source of truth for IT cost allocation`, `Justify IT budgets with business-aligned cost models`, `Eliminate spreadsheet-based cost modelling`],
+        who: [`CIO / IT Finance`, `CFO / Finance Business Partner`, `Business Unit Leaders`],
+        examples: [
+          `<strong>Global Manufacturer (CFO Can't See Where $300M IT Budget Goes):</strong> A large manufacturer had a $300M IT budget but when the CFO asked which business units were consuming the most, and whether IT was delivering value, there was no answer. With Apptio Costing, the CIO built a model that mapped every pound of IT spend to the 12 business units and 40 services it supported, in 90 days. <strong>For the first time, the CIO could show the CFO the exact cost per business service, and three underperforming services were identified for consolidation, saving $18M.</strong>`,
+          `<strong>UK Government Agency (Can't Meet Treasury Mandate on IT Costs):</strong> A government agency was legally required by HM Treasury to publish how much it cost to deliver each citizen-facing digital service, but because IT costs weren't allocated to services, they simply couldn't produce the data. Apptio Costing created that service-level cost breakdown. Within 12 months the agency published its first cost-per-transaction report, showing a 35% cost reduction over three years. <strong>The data directly protected the agency's funding, a cut was under consideration before the report was produced.</strong>`
+        ]
+      },
+      {
+        name: `Apptio Planning (IT Budget &amp; Forecast)`,
+        desc: `Collaborative IT budgeting and forecasting solution that replaces Excel-based planning cycles with a connected, driver-based model, linking IT demand to financial capacity and enabling rolling forecasts aligned to business priorities.`,
+        why: [`Replace fragmented Excel-based IT budget cycles`, `Continuous rolling forecasting vs annual budget rigidity`, `Align IT demand plans to financial capacity`],
+        who: [`CIO / IT Finance`, `Budget Owners / Department Heads`, `Financial Planning &amp; Analysis (FP&amp;A)`],
+        examples: [
+          `<strong>Retail Bank (IT Budget Takes 6 Months and Is Already Outdated):</strong> A bank's annual IT budget process involved 200 separate Excel spreadsheets, took 6 months, and produced a plan that was already out of date before it was even approved. With Apptio Planning, all budget requests feed into a single connected model, Finance sees the full consolidated picture in real time with no spreadsheet merging. <strong>The planning cycle compressed from 6 months to 6 weeks; the CIO submitted a board-ready budget 10 weeks earlier than the previous year.</strong>`,
+          `<strong>Insurance Group (Cloud Spend Running Over, CFO Won't Know for 6 Weeks):</strong> An insurer's cloud programme was running 25% over budget by mid-year, but under the existing financial process, the CFO wouldn't see the updated picture until the end-of-month close, 6 weeks away. With Apptio Planning's live forecast model, the moment the overspend was confirmed, the financial position updated in real time. <strong>The CFO saw the full impact the same day and could reallocate budget that quarter, instead of discovering an end-of-year surprise with no room to act.</strong>`
+        ]
+      },
+      {
+        name: `Apptio Billing (IT Chargeback / Showback)`,
+        desc: `Automates the generation of IT billing statements, chargeback invoices or showback reports, delivered to business units, showing exactly what IT services they consumed and what they are being charged or credited. Drives cost-aware behaviour in business units that "consume" IT services.`,
+        why: [`Drive business unit accountability for IT consumption`, `Automate monthly/quarterly IT billing cycles`, `Reduce shadow IT by making true IT costs visible`],
+        who: [`IT Finance`, `Business Unit CFOs`, `Shared Services / Finance`],
+        examples: [
+          `<strong>Global Manufacturer (Business Units Don't Care About IT Costs They Can't See):</strong> When IT costs are bundled centrally, business divisions have no reason to question them. Apptio Billing produced monthly IT cost statements for each of 15 divisions, and in month 3, one division's storage bill spiked 40%. The division's own IT leader immediately called to investigate, something that would never have happened without a bill. The cause: 50TB of redundant test data from a completed project that no one had cleaned up. <strong>Data deleted; storage costs returned to baseline; the total storage estate shrank by 12% within 6 months, driven entirely by business unit accountability, with no IT mandate.</strong>`,
+          `<strong>Government Agency (Visibility Alone Drives £3M in Savings):</strong> A government agency introduced monthly IT cost reports for 8 department heads, not bills, just visibility of what IT was spending on their behalf. Within two quarters, department heads were proactively querying unnecessary software licences and server allocations they'd never seen before. <strong>£3M in voluntary cost reductions, all initiated by the business units, with zero enforcement from IT.</strong> <em>Pre-sales insight: simply showing people what IT costs on their behalf, without billing them, is often the single highest-ROI FinOps action.</em>`
+        ]
+      },
+      {
+        name: `Apptio Benchmarking`,
+        desc: `Compares an organisation's IT cost structure, spend ratios, and efficiency metrics against an anonymised peer benchmark database of 4,000+ companies, revealing whether IT is over- or under-investing in key areas relative to industry norms.`,
+        why: [`Validate IT spend efficiency vs industry peers`, `Identify overspend areas for cost reduction initiatives`, `Build board-level narrative for IT investment decisions`],
+        who: [`CIO / CTO`, `CFO / Board`, `IT Strategy &amp; Planning`],
+        examples: [
+          `<strong>Retail Bank (CIO Suspects IT Costs Are High, But Can't Prove It):</strong> A bank's CIO believed end-user computing costs were too high but had nothing to back that up in a CFO conversation. Apptio Benchmarking compared the bank's cost per employee ($4,200) against the financial services industry average ($2,800), a 50% premium, clearly driven by legacy support contracts from before the cloud era. <strong>The benchmark became the anchor for a board-approved refresh and contract renegotiation programme saving $6M annually, a business case the CIO simply could not have made without peer comparison data.</strong>`,
+          `<strong>Hospital Network (Software Licensing Too High, No Evidence to Act):</strong> A hospital network's software licensing costs were high, but IT leadership had no external data to justify a rationalisation programme to the board. Apptio Benchmarking showed their application cost per user was 35% above the healthcare sector average, attributable to overlapping software tools doing the same job. <strong>The benchmark analysis went directly into the board paper approving a 3-year rationalisation programme, projecting $9M in savings, funded entirely by eliminated licences in year 1.</strong>`
+        ]
+      },
+      {
+        name: `Apptio AI TCO (Total Cost of Ownership for AI &amp; Hybrid Cloud)`,
+        desc: `Models the full total cost of ownership for AI and hybrid cloud programmes, encompassing GPU compute, data infrastructure, model training, inference costs, people, and tooling, enabling organisations to make informed build-vs-buy and cloud-vs-on-premise decisions for AI workloads.`,
+        why: [`Quantify true cost of AI/ML programmes before committing`, `Compare cloud vs on-premise AI infrastructure economics`, `Demonstrate AI ROI to CFO and board`],
+        who: [`CIO / CTO / CDO`, `AI/ML Programme Leaders`, `CFO / Finance`],
+        examples: [
+          `<strong>Retail Bank (Which Way to Build the AI Platform, and What Will It Cost?):</strong> A bank planning a generative AI customer service platform had three infrastructure options to choose from but no way to compare their true 3-year costs. The gut instinct was to use a public cloud provider for speed. Apptio AI TCO modelled all three options, factoring in computing costs, data transfer fees, staffing, and tooling. It revealed that at the scale the bank intended to operate, cloud costs would be 2.3× more expensive than on-premise after 18 months. <strong>The bank adopted a hybrid approach, saving $8M over 3 years compared to the pure-cloud path that would have been chosen without the model.</strong>`,
+          `<strong>Hospital Network ($4M AI Investment Stuck in Procurement):</strong> A hospital network's IT team wanted to invest $4M in AI-assisted radiology (software that helps radiologists review scans faster), but the CFO wouldn't approve without a credible return on investment model. Apptio AI TCO modelled the full cost over 3 years, computing, people, tooling, against the productivity gains and clinical benefits. <strong>The model showed a 2.8-year payback period; the CFO approved the investment at the next board cycle.</strong> Without the model, the programme had been sitting in a procurement committee for 12 months with no path forward.`
+        ]
+      },
+      {
+        name: `Apptio Mainframe TCO`,
+        desc: `Provides granular visibility into mainframe (IBM Z) costs, breaking down MIPS/MSU consumption by application, transaction type, and business service, enabling organisations to optimise mainframe workloads, justify co-existence with cloud, or build evidence-based migration business cases.`,
+        why: [`Understand true mainframe cost per application`, `Optimise MIPS/MSU to reduce software licence costs`, `Build data-driven mainframe modernisation business cases`],
+        who: [`CIO / IT Finance`, `Mainframe / Infrastructure Managers`, `CFO / Finance`],
+        examples: [
+          `<strong>Major Bank ($90M Mainframe Bill, No Idea What's Driving It):</strong> A bank spending $90M/year on its mainframe had no visibility into which applications were responsible for the cost, so any conversation about modernisation was based on opinion rather than data. Apptio Mainframe TCO attributed costs to all 120 applications and revealed that 8 old batch reporting applications (low business value, no real-time users) were consuming 22% of the entire bill. Migrating those 8 applications to cloud addressed the waste. <strong>Mainframe bill reduced by $18M/year, the CIO presented a board-level business case built on data no one had seen before.</strong>`,
+          `<strong>Insurance Company (Brief Spikes Inflating a Huge Annual Bill):</strong> An insurer's mainframe software licence costs are calculated based on peak usage, even brief spikes during busy periods trigger a higher annual charge from IBM. Apptio Mainframe TCO analysed usage patterns and found that non-urgent month-end batch jobs were running at the same time as the peak business workload, artificially pushing the measured peak higher. Rescheduling those jobs to overnight windows reduced the measured peak by 18%. <strong>Annual IBM licence saving: $2.4M, achieved with no application changes and no migration, purely by changing the schedule.</strong>`
+        ]
+      },
+      {
+        name: `Apptio EBM Costing &amp; Billing (Enterprise Business Management)`,
+        desc: `Extends TBM cost modelling and billing to the enterprise level, connecting IT costs to business products, value streams, and customer segments. Enables product-centric IT financial management where organisations fund business capabilities and products rather than IT projects.`,
+        why: [`Transition from project-based to product-based IT funding`, `Connect IT cost to business value and revenue`, `Enable transparent IT-to-product P&amp;L accounting`],
+        who: [`Chief Product Officer / CPO`, `Product P&amp;L Owners`, `CFO / CIO Jointly`],
+        examples: [
+          `<strong>Digital Bank (Product Teams Can't See What They Cost):</strong> A challenger bank organised into 6 product teams, each responsible for a product like savings accounts or mortgages, had no visibility into the full technology cost of running their product, because shared infrastructure costs were lumped centrally. Apptio EBM Costing mapped every technology cost to each product, including its share of shared platforms. <strong>Each team could now see its full cost alongside its revenue, and one team discovered it was consuming three times its fair share of the data platform, redesigning its approach and saving $1.2M annually.</strong>`,
+          `<strong>Telecoms Operator (One Customer Segment Secretly Subsidising Another by $25M):</strong> A telco's CFO suspected enterprise customers weren't paying their fair share of shared infrastructure costs, but had no way to prove it. Apptio EBM Costing mapped IT costs across all four customer segments and confirmed that the consumer segment was effectively subsidising enterprise infrastructure by $25M/year, enterprise used 60% of a shared platform but was allocated only 30% of its cost. Enterprise contract pricing was adjusted to reflect actual consumption. <strong>Enterprise segment profit margin improved by 4 percentage points with no change to services delivered.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Cloudability`,
+    cat: `FinOps`,
+    partner: false,
+    link: `https://www.apptio.com/products/cloudability-family/`,
+    salesLinks: [
+      { type: `product`, label: `Cloudability Family, Product Page (apptio.com)`, url: `https://www.apptio.com/products/cloudability-family/` },
+      { type: `seismic`, label: `Cloudability Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCdb3pffTFXj9GTCBbM6JTc7Gqfd` }
+    ],
+    desc: `IBM Cloudability is IBM's dedicated cloud FinOps platform, providing real-time, multi-cloud spend visibility, cost allocation, anomaly detection, rightsizing recommendations, and savings commitment optimisation across <strong>AWS, Azure, GCP, and OCI (Oracle Cloud Infrastructure)</strong>, plus direct connectors for Snowflake, Databricks, Datadog, and MongoDB. IBM was named a <strong>Leader in the Gartner® Magic Quadrant™ for Cloud Financial Management Tools</strong>, positioned furthest in Vision and highest in Execution. Cloudability delivers: save 20%+ on annual cloud spend, allocate 100% of cloud costs, and achieve 90%+ Reserved Instance &amp; Savings Plan coverage. It is the operational counterpart to Apptio's strategic IT financial management, focused specifically on bringing financial accountability to cloud engineering teams.`,
+    solutions: [
+      {
+        name: `Cloud Spend Visibility &amp; Cost Allocation`,
+        desc: `Ingests cloud billing data across all major cloud providers and allocates costs to teams, applications, and business units via tag-based rules, producing accurate showback and chargeback reports that make cloud spending transparent and accountable.`,
+        why: [`Chargeback / showback cloud costs to engineering teams`, `Replace manual cloud invoice analysis`, `Drive engineering accountability for cloud spend`],
+        who: [`FinOps Practitioners`, `Cloud Engineering Teams`, `Finance / Procurement`],
+        examples: [
+          `<strong>Media Company (No Idea Which Team Is Spending $8M on Cloud):</strong> A broadcaster's entire $8M/year cloud bill sat under a single shared account, the finance team had no visibility into which of 8 production teams was responsible for what spend. Cloudability assigned every pound of cloud cost to the team that generated it. The analysis showed 3 teams were responsible for 65% of spend while producing only 20% of output, massively over-resourced relative to their workload. A targeted review followed. <strong>Those 3 teams reduced their cloud spend by $800K/year within 6 months, without missing a single production deadline.</strong>`,
+          `<strong>Retailer (Cloud Bill Growing 30% a Year, No One Owning It):</strong> A retailer's cloud spend was growing 30% year-on-year with no clear accountability, engineering teams had never seen their own cloud costs, so no one was motivated to reduce them. Cloudability introduced weekly cost dashboards visible to each engineering team in their regular meetings. Within 90 days, 5 teams proactively identified and switched off idle resources after seeing their own spending for the first time. <strong>$1.2M saved collectively, with no FinOps mandate, no top-down pressure, and no engineering slowdown.</strong> <em>Pre-sales insight: showing engineers their own cloud costs is often the single highest-ROI FinOps action.</em>`
+        ]
+      },
+      {
+        name: `Anomaly Detection &amp; Spend Alerts`,
+        desc: `Continuously monitors cloud spend patterns and raises real-time alerts when unexpected cost spikes occur, protecting organisations from runaway bills caused by misconfigured infrastructure, forgotten resources, or data transfer surprises.`,
+        why: [`Prevent unexpected cloud bill shocks`, `Rapid detection of misconfigured or orphaned resources`],
+        who: [`FinOps / Cloud Governance`, `Engineering Managers`, `CFO / Finance`],
+        examples: [
+          `<strong>Retail Bank (Developer Accidentally Leaves $45K/Day Running Over the Weekend):</strong> A developer provisioned 200 high-powered servers for a performance test on Friday afternoon and left for the weekend without scheduling them to switch off. Without real-time spend monitoring, this wouldn't have been noticed until Monday morning, costing $45K per day. Cloudability detected the spending spike within 2 hours and messaged the FinOps team. The servers were switched off Friday evening. <strong>$85K in unnecessary weekend spend avoided.</strong> The bank used the incident to introduce a provisioning approval policy for high-cost server types.`,
+          `<strong>SaaS Provider (Cloud Bill Creeping Up, Can't Find the Cause):</strong> A software company's cloud bill had been rising month-on-month but no one could identify why, individual line items looked normal. Cloudability flagged a 300% spike in data transfer costs. Investigation found a misconfigured data pipeline introduced 3 weeks earlier that was unnecessarily copying 10TB of data nightly between data centres, a single setting in a configuration file. <strong>Fixed in 2 hours; without the alert, the $60K/month overcharge would have continued undetected, total exposure over the likely detection window: $180K.</strong>`
+        ]
+      },
+      {
+        name: `Rightsizing &amp; Commitment Optimisation`,
+        desc: `Analyses cloud resource utilisation patterns and recommends instance rightsizing, Reserved Instance purchases, and Savings Plan commitments, maximising cloud discount while maintaining flexibility for variable workloads.`,
+        why: [`Reduce on-demand cloud costs by 20-40%`, `Automate Reserved Instance / Savings Plan decisions`],
+        who: [`FinOps Practitioners`, `Cloud Architecture`, `Procurement / Finance`],
+        examples: [
+          `<strong>Bank (Paying Full Price for Cloud, Discounts Left on the Table):</strong> A bank's cloud finance team was managing its cloud discount commitments (pre-paying for computing capacity in exchange for lower rates) using spreadsheets, discount coverage sat at just 45% because they weren't confident enough to commit more without better data. Cloudability analysed historical usage patterns and recommended exactly which commitments to make, with a 92% confidence rating on each. Discount coverage rose from 45% to 88% over 6 months. <strong>Average cloud discount reached 34%, $9M saved annually on a $26M cloud spend.</strong>`,
+          `<strong>Healthcare IT Company (Servers Oversized at Migration, Never Reviewed):</strong> When a health IT company migrated to the cloud two years ago, servers were generously sized with a plan to review them later. That review never happened. Cloudability analysed 6 months of actual usage and found 240 servers where average utilisation was below 15%, significantly oversized for what they were running. Engineers reviewed and accepted 85% of the recommendations. <strong>Annual saving: $420K, with zero application performance issues throughout.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Cloudability Premium`,
+    cat: `FinOps`,
+    partner: false,
+    link: `https://www.apptio.com/products/cloudability-family/`,
+    salesLinks: [
+      { type: `product`, label: `Cloudability Family, Product Page (apptio.com)`, url: `https://www.apptio.com/products/cloudability-family/` },
+      { type: `seismic`, label: `Cloudability Premium Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCmqcW8VDHRTpGmR4X7VFF8FCRTB` },
+      { type: `seismic`, label: `Cloudability Savings Automation Datasheet (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCPbGJg69GDfbGqR7GRg3P26hbFB` }
+    ],
+    desc: `IBM Cloudability Premium is the highest tier of the Cloudability family, combining all core Cloudability cost visibility, allocation, anomaly detection, and commitment management capabilities with two exclusive additions: (1) <strong>IBM Turbonomic integration</strong> for performance-safe resource optimisation (full application stack visibility, performance-aware rightsizing that prevents SLA degradation), and (2) <strong>Cloudability Savings Automation</strong>, fully automated purchasing and management of Reserved Instances and Savings Plans across AWS and Azure. Savings Automation achieves <strong>95%+ commitment coverage</strong>, obtains 3-year discount rates with flexible short-term terms by dynamically exchanging convertible RIs, and scales commitment positions up or down as demand changes, offloading day-to-day RI management from FinOps teams entirely.`,
+    solutions: [
+      {
+        name: `Performance-Safe Optimisation (Turbonomic Integration)`,
+        link: `https://www.ibm.com/products/turbonomic`,
+        desc: `Integrates IBM Turbonomic's application resource management directly into Cloudability, so rightsizing and scaling recommendations are based on actual application performance demand, not just cost metrics alone. Ensures that cost optimisation actions never degrade application SLAs by factoring in the full application stack before recommending instance changes, terminations, or workload placement moves.`,
+        why: [`Optimise cloud costs without sacrificing application performance`, `Performance-aware rightsizing, not just cost-driven`, `Automate non-disruptive actions and eliminate orphaned resources`],
+        who: [`FinOps Practitioners`, `Cloud Platform / SRE Teams`, `CIO / Engineering VP`],
+        examples: [
+          `<strong>Bank (Automated Cost Savings Broke Performance, Team Lost Trust):</strong> A bank had tried automated cloud right-sizing recommendations the previous year, but 20% of actions had to be reversed within days because application performance degraded. The team lost confidence and turned off automation entirely. Cloudability Premium adds IBM Turbonomic's intelligence: before any recommendation is made, it checks whether the application can actually handle the change without impacting users, based on real demand data rather than just utilisation averages. <strong>600 servers were right-sized with zero performance issues and zero reversals, saving $3.2M annually. Automated optimisation was re-enabled for the first time since the failed rollout.</strong>`,
+          `<strong>Retailer (2 Years of Forgotten Cloud Resources Quietly Burning Budget):</strong> A retailer's cloud environment had accumulated 2 years of unused resources, unattached storage volumes, idle network components, and test servers that were paused but never deleted. Cloudability Premium automatically identified and cleaned up resources confirmed as safe to remove, and put development and test servers on a schedule to switch off overnight and on weekends. <strong>$480K saved annually in wasted idle spend, achieved with zero manual effort after a 2-hour initial policy setup.</strong>`
+        ]
+      },
+      {
+        name: `Cloudability Savings Automation (Autonomous RI &amp; Savings Plan Management)`,
+        desc: `Fully automates the purchasing, exchange, and management of AWS Reserved Instances and Azure Reserved Instances, continuously evaluating workload profiles and dynamically adjusting commitment positions to match current and future demand. Achieves <strong>95%+ commitment coverage</strong> and obtains effective 3-year discount rates through strategic short-term RI exchanges (convertible RI laddering), while retaining flexibility to scale commitment positions up or down as demand changes.`,
+        why: [`95%+ RI &amp; Savings Plan coverage, automated, not manual`, `3-year discount rates without 3-year lock-in risk`, `Free up FinOps team from day-to-day commitment management`],
+        who: [`FinOps Practitioners`, `Cloud Procurement / Finance`, `CTO / CIO`],
+        examples: [
+          `<strong>SaaS Company (FinOps Analyst Spending 25 Hours a Month on Spreadsheets):</strong> A software company with a $12M/year cloud commitment portfolio had a FinOps analyst spending 25+ hours every month manually reviewing usage, deciding whether to buy, exchange, or let discount commitments expire. Despite the effort, they were capturing only 55% of the available discounts. Cloudability Savings Automation took over the day-to-day management, evaluating usage patterns continuously and making commitment adjustments every week without human input. <strong>Discount coverage rose from 55% to 94% within 90 days, and the analyst's 25 hours/month was freed for strategic work instead of spreadsheet management.</strong>`,
+          `<strong>Retailer (Locked into Peak-Season Cloud Commitments Long After Demand Drops):</strong> A retailer sized its cloud discount commitments (pre-paid capacity reservations) for Black Friday peak. After the peak, traffic dropped 60%, but the commitments ran unchanged for months, paying for capacity far beyond what was needed. Under standard terms there was no way to reduce them. Cloudability Savings Automation dynamically adjusted the commitment position downward as demand fell, using a strategy of short-term exchanges to reduce the effective rate. <strong>$800K in wasted post-peak spend avoided, compared to the previous year when the over-committed position ran unmanaged until the next peak.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Targetprocess`,
+    cat: `Portfolio`,
+    partner: false,
+    link: `https://www.apptio.com/products/targetprocess/?lnk=L0G`,
+    salesLinks: [
+      { type: `product`, label: `Targetprocess, Product Page (apptio.com)`, url: `https://www.apptio.com/products/targetprocess/?lnk=L0G` },
+      { type: `seismic`, label: `Targetprocess Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DC4bjF7FTH9db8CPRBqCV9h7m2T8` }
+    ],
+    desc: `IBM Targetprocess is a single, unified Strategic Portfolio Management (SPM) and Enterprise Agile Planning (EAP) platform. A suite of end-to-end solutions from Strategy - Ideation - Outcomes. It provides one connected environment where strategy, portfolio investment, programme delivery, and team-level agile work all live together, spanning portfolio management frameworks, Quarterly/PI planning, roadmapping, risk management, workforce management, dependency tracking, capacity planning, and value stream management within one tool. It supports SAFe, LeSS, hybrid, and custom scaled agile frameworks.`,
+    solutions: [
+      {
+        name: `Unified SPM &amp; Enterprise Agile Planning Platform`,
+        desc: `A single platform that connects business strategy to delivery execution. Provides: (1) Strategic Portfolio Management, investment themes, capability maps, portfolio dashboards, scenario planning, and financial tracking; (2) Enterprise Agile Planning, PI Planning, ART backlogs, cross-team dependency boards, roadmaps, and OKR cascade; (3) Value Stream &amp; Flow Management, value stream mapping, flow metrics (flow time, velocity, load), and business capability tracking. All layers are connected in one data model.`,
+        why: [`Connect strategy to delivery in one system, no spreadsheets`, `Scale SAFe / LeSS agile planning across hundreds of teams`, `Real-time portfolio investment vs delivery health visibility`, `Replace fragmented Jira + PPM tool + Excel combinations`],
+        who: [`CEO / COO / CFO (portfolio investment)`, `Enterprise PMO &amp; Portfolio Leaders`, `Release Train Engineers (RTEs)`, `Product Managers &amp; Owners`, `Agile Coaches &amp; Scrum Masters`],
+        examples: [
+          `<strong>Tier-1 Bank (Strategy, Delivery, and Finance Living in Three Separate Tools):</strong> A bank governing a $2B technology investment portfolio had a critical disconnect: business strategy lived in PowerPoint, team delivery tracking lived in a project tool, and financial reporting lived in spreadsheets. When a regulatory deadline forced re-prioritisation, working out what to change and which teams were affected required 6 weeks of manual reconciliation across all three systems. Targetprocess connected all three layers in a single live model, investment decisions, programme plans, and team work all in one place. <strong>When the next re-prioritisation was required, the impact cascaded through to affected teams in real time, the 6-week manual cycle became a same-day decision.</strong>`,
+          `<strong>Telecoms Provider (80 Teams Working Hard, No Idea If They're Delivering the Strategy):</strong> A telco running 80 delivery teams on a major 5G programme had business goals (OKRs) defined at executive level, but no visible connection between those goals and what teams were actually building. When a regulatory deadline shifted, no one could quickly identify which workstreams were affected or what needed to change, manually tracing the dependency chain took a week. With Targetprocess, business goals connect directly to the specific features and team tasks delivering them. <strong>When the next regulatory deadline shifted, portfolio leaders identified all affected work and re-planned on the same day, replacing a week of manual dependency analysis.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `Flexera (IT Asset Management)`,
+    cat: `FinOps`,
+    partner: true,
+    salesLinks: [
+      { type: `product`, label: `Flexera, Product Page (flexera.com)`, url: `https://www.flexera.com` },
+      { type: `product`, label: `Flexera IT Asset Management`, url: `https://www.flexera.com/products/it-asset-management` }
+    ],
+    desc: `Flexera is a leading third-party IT asset management (ITAM) and software asset management (SAM) platform that IBM frequently deploys and integrates within its IT Automation and FinOps engagements. It is not owned by IBM but is a key partner tool in IBM's ITAM practice, providing complete visibility into hardware and software inventories to optimise licensing spend, manage compliance risk, and prepare for vendor audits.`,
+    solutions: [
+      {
+        name: `Software Asset Management (SAM)`,
+        desc: `Discovers all software deployed across on-premise and cloud estates, reconciles against licence entitlements, and identifies both over-licensing waste and under-licensing compliance risks.`,
+        why: [`Avoid costly vendor audit penalties`, `Reclaim unused software licences (SaaS optimisation)`],
+        who: [`IT Asset Management (ITAM)`, `Procurement / Finance`, `GRC / Compliance`],
+        examples: [
+          `<strong>Manufacturer (Oracle Sends an Audit Notice, 30 Days to Produce Evidence):</strong> A large manufacturer received a formal software audit notice from Oracle, they had 30 days to produce a complete inventory of every Oracle installation across their IT estate. Without Flexera, this would have required weeks of manual discovery across 200+ servers with no guarantee of accuracy. Using Flexera, the team produced a complete, auditable inventory in 3 days. It revealed a gap, under-licensed in one product, over-licensed in another. <strong>Armed with accurate data, the company negotiated a remediation plan with Oracle instead of facing a $4M+ fine for non-compliance. Having Flexera was worth $2.8M in that single engagement.</strong>`,
+          `<strong>Bank (Paying for 12,000 Software Licences, 4,200 No Longer Needed):</strong> A bank had 12,000 Microsoft 365 licences at $120/user/year, a $1.44M annual spend. Flexera discovered that 35% of those licences were assigned to people who had left, contractors whose engagements had ended, and test accounts that were never cleaned up. <strong>4,200 licences were reclaimed, saving $504K annually and eliminating a $504K renewal increase at the next Microsoft contract negotiation.</strong> The licences were reallocated to new joiners instead of buying additional ones.`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Workload Automation`,
+    cat: `Automation`,
+    partner: false,
+    link: `https://www.ibm.com/products/workload-automation`,
+    salesLinks: [
+      { type: `product`, label: `IBM Workload Automation, Product Page (ibm.com)`, url: `https://www.ibm.com/products/workload-automation` },
+      { type: `seismic`, label: `Workload Automation Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCX4HW7TGjjPX8MTjPg68QHCCG88` },
+      { type: `w3`, label: `Workload Automation Technical Blog (w3 Internal)`, url: `https://w3.ibm.com/w3publisher/core-software-organization/technical-blogs/c9ad8660-9726-11f1-a554-d951583cbf8f` }
+    ],
+    desc: `Enterprise job scheduling and workload automation platform for orchestrating batch jobs, workflows, and data pipelines across distributed, hybrid, and mainframe environments, replacing cron and legacy schedulers with intelligent, event-driven automation.`,
+    solutions: [
+      {
+        name: `Batch Job Scheduling &amp; Orchestration`,
+        desc: `Schedules and manages millions of batch jobs across mainframe (z/OS), distributed, and cloud platforms, with dependency management, SLA monitoring, and automatic recovery.`,
+        why: [`Replace unreliable cron/legacy schedulers`, `End-of-day batch processing SLA assurance`],
+        who: [`IT Operations`, `Finance (batch settlement)`, `Data Engineering`],
+        examples: [
+          `<strong>Retail Bank (Regulatory Deadline Missed 12 Times in a Year):</strong> A bank ran 15,000 automated overnight jobs to process end-of-day settlement, which had to complete by a regulatory 11pm cutoff. The settlement job depended on 23 other jobs completing first, but with no automated dependency management, if any ran late or failed, the settlement either waited indefinitely or ran on incomplete data. The deadline was missed 12 times in a year. IBM Workload Automation enforced the dependency chain, the settlement job only runs when all 23 prerequisites have successfully completed, with automatic alerts and recovery if anything goes wrong upstream. <strong>Zero missed settlement deadlines in the 12 months following deployment.</strong>`,
+          `<strong>Global Retailer (500 Overnight Jobs, No One Knows If They're Running):</strong> A retailer had 500 separate automated overnight jobs scattered across servers with no central visibility. When a critical inventory job ran 3× longer than expected due to a data problem, no one knew until store managers reported missing stock the next morning. IBM Workload Automation replaced all 500 jobs with a centrally monitored schedule with automatic alerts. When the same inventory job ran long again, the system alerted the operations team at 2am, 5 hours before the morning restocking window. <strong>The team fixed the data issue in time; stock data was accurate for all 400 stores' morning restocking, avoiding the shortfalls that had affected the business previously.</strong>`
+        ]
+      },
+      {
+        name: `Dynamic Workload Console &amp; SLA Management`,
+        desc: `Provides real-time visibility into all scheduled workloads, predicts SLA breaches before they occur, and automatically applies remediation actions.`,
+        why: [`Prevent missed financial settlement deadlines`, `Reduce overnight operations team toil`],
+        who: [`Operations / Batch Teams`, `Finance Operations`, `IT Management`],
+        examples: [
+          `<strong>Insurance Company (Month-End Calculation Falling Behind, No One Knows Until Morning):</strong> An insurer's month-end financial calculation batch run had to complete by 9am for board reporting. Midway through one run, a spike in incoming data slowed a key calculation job, but without real-time monitoring, no one would have known until morning, too late to do anything. IBM Workload Automation detected the delay in real time, automatically shifted computing resource from lower-priority background jobs onto the critical calculation, and alerted the batch manager. <strong>Month-end close completed on time, the CFO's 9am deadline was met despite the data spike.</strong>`,
+          `<strong>Payment Network (Discovering a Missed Deadline at 05:45, Fine Already Inevitable):</strong> A payment scheme had overnight jobs that had to complete by 6am, missing the window triggered a £500K contractual fine. The team was only finding out about potential misses at 05:45, with 15 minutes left and no time to intervene. IBM Workload Automation monitored job progress continuously and predicted completion time in real time. When a clearing job at 3am was tracking 45 minutes late, the system raised an alert immediately, 3 hours before the deadline. <strong>The team resolved the issue by 3am; the job completed by 05:40, the £500K fine was avoided.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `Kubecost (Kubernetes Cost Management)`,
+    cat: `FinOps`,
+    partner: true,
+    link: `https://www.apptio.com/products/kubecost/?src=kc-com`,
+    salesLinks: [
+      { type: `product`, label: `Kubecost, Product Page (apptio.com)`, url: `https://www.apptio.com/products/kubecost/?src=kc-com` },
+      { type: `seismic`, label: `Kubecost Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCpQbmpbgqBJC8qVmDRBJ4cHJHHP` }
+    ],
+    desc: `Kubecost is an open-source-based Kubernetes cost monitoring and optimisation tool that IBM integrates within its FinOps and cloud cost management engagements. It is not IBM-owned but is a key tool in IBM's Kubernetes FinOps practice, providing granular, real-time visibility into Kubernetes resource spend attributed to teams, namespaces, and workloads, enabling FinOps disciplines inside container platforms.`,
+    solutions: [
+      {
+        name: `Kubernetes Spend Visibility &amp; Chargeback`,
+        desc: `Allocates Kubernetes cluster costs to namespaces, labels, deployments, and teams, enabling accurate showback/chargeback for shared Kubernetes platforms.`,
+        why: [`Understand true cost of running microservices`, `Hold engineering teams accountable for K8s spend`],
+        who: [`FinOps / Cloud Economics`, `Platform Engineering`, `Engineering Managers`],
+        examples: [
+          `<strong>SaaS Company (15 Teams Sharing a $2.2M Infrastructure Bill, No One Knows Their Share):</strong> A software company ran 15 engineering teams on a shared container platform with a combined $2.2M/year bill, but no team had any visibility into what they were personally responsible for. Kubecost attributed costs to each team individually. The analysis revealed one team's nightly data job was using 4× more computing than comparable jobs on other teams, an inefficiency no one had investigated because there was never a cost signal. The team optimised it. <strong>That team's monthly infrastructure cost dropped 60%; total platform cost reduced 12% in the first quarter, purely from team-level cost visibility.</strong>`,
+          `<strong>Neobank (Container Infrastructure Costs Growing 40%, CFO Asking Questions):</strong> A neobank's container platform costs were growing 40% annually and the CFO was asking engineering to justify it. Kubecost introduced monthly cost reports for each engineering squad, visible in their regular leadership meetings alongside revenue metrics. Within 3 months, squads proactively identified and fixed 8 cost inefficiencies they'd been unaware of. <strong>Total infrastructure spend reduced 28% in 3 months, with no top-down mandate, no specialist FinOps team involved, and no slowdown in engineering delivery.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Operations Insights`,
+    cat: `AIOps`,
+    partner: false,
+    salesLinks: [
+      { type: `product`, label: `IBM Operations Insights, IBM Docs`, url: `https://www.ibm.com/docs/en/operations-insights` }
+    ],
+    desc: `An AI-powered log analytics and IT operations intelligence platform that analyses log data at scale to provide IT ops teams with pattern recognition, anomaly detection, and accelerated troubleshooting insights.`,
+    solutions: [
+      {
+        name: `Log Analytics &amp; Pattern Detection`,
+        desc: `Ingests billions of log records and uses AI to automatically group similar log messages, detect abnormal patterns, and identify recurring failure signatures across the IT estate.`,
+        why: [`Accelerate root cause analysis from logs`, `Reduce MTTD for recurring incidents`],
+        who: [`IT Operations`, `NOC`, `SRE / Platform Teams`],
+        examples: [
+          `<strong>Telecoms Company (Recurring Outages, Pattern Hidden in Billions of Log Lines):</strong> A telecoms company's systems generated 500 billion log entries per month across network management, billing, and customer systems, far too much data for any human team to search through meaningfully. IBM Operations Insights applied AI pattern recognition continuously across this volume and found a specific sequence of warning messages across three systems that always appeared exactly 15 minutes before a customer-affecting outage, a pattern completely invisible to manual searching. <strong>The operations team implemented a pre-emptive automated response triggered by the pattern, preventing 80% of recurring outages of that type and converting a reactive problem into a pre-emptive action.</strong>`,
+          `<strong>Bank (Payment Failures Twice a Week, Root Cause Invisible for Weeks):</strong> A bank's support team was investigating intermittent payment processing failures occurring roughly twice a week, with no obvious error message in any log file. Manual searching across 2TB of daily log data was impractical, previous investigations took 4+ hours without a conclusion. IBM Operations Insights' AI pattern matching found that a specific cluster of database contention messages always appeared exactly 30 seconds before every payment failure, a subtle connection impossible to find by keyword search. <strong>Root cause identified in 20 minutes (vs 4+ hours previously), traced to a missing database optimisation from a recent change, fixed in the next release.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM IT Automation (RPA &amp; Intelligent Automation)`,
+    cat: `Automation`,
+    partner: false,
+    salesLinks: [
+      { type: `product`, label: `IBM Robotic Process Automation, Product Page`, url: `https://www.ibm.com/products/robotic-process-automation` },
+      { type: `product`, label: `IBM Process Mining, Product Page`, url: `https://www.ibm.com/products/process-mining` }
+    ],
+    desc: `IBM's robotic process automation and intelligent automation solutions, combining RPA, AI, and process mining to automate repetitive IT and business processes, freeing human workers for higher-value activities.`,
+    solutions: [
+      {
+        name: `Robotic Process Automation (RPA)`,
+        desc: `Software robots automate rule-based, repetitive tasks across IT service desks, ERP systems, and business applications, mimicking human actions at machine speed.`,
+        why: [`Reduce manual IT ticket handling costs`, `Automate ERP data entry and report generation`],
+        who: [`IT Service Desk`, `Finance Operations`, `HR Operations`],
+        examples: [
+          `<strong>Insurance Company (IT Helpdesk Agents Spending Hours on Password Resets):</strong> An insurer's IT helpdesk handled 8,000 requests per month, 60% were completely routine tasks (password resets, access requests, software installs, account unlocks) that followed the same steps every time but each took an agent 20–40 minutes. IBM RPA bots were deployed to handle these five request types end-to-end. <strong>65% of all tickets are now resolved entirely by bots with no human involvement, average resolution time fell from 4 hours to 8 minutes, 12 full-time equivalent roles were freed for complex work, and employee satisfaction improved as wait times dropped.</strong>`,
+          `<strong>Manufacturer (5 Accountants Spending 3 Days a Month on Invoice Matching):</strong> A manufacturer's accounts payable team spent 3 days every month manually extracting supplier invoice data from PDFs, checking it against purchase orders, and posting the results into the financial system, a process prone to errors. IBM RPA bots automated the full sequence: extract, match, post, and flag the 8% that needed human review. <strong>The 3-day, 5-person monthly process now completes in 4 hours with 2 people reviewing exceptions only, a 92% reduction in manual effort. Accountants redirected freed time to cash flow analysis and supplier relationship management.</strong>`
+        ]
+      },
+      {
+        name: `Process Mining`,
+        desc: `Extracts process flows from event logs in ERP and ITSM systems to visualise how processes actually execute, identifying bottlenecks, deviations, and automation opportunities.`,
+        why: [`Identify the highest-ROI automation candidates`, `Continuous process improvement and compliance`],
+        who: [`Business Process Excellence`, `Operations / Finance`, `Shared Services`],
+        examples: [
+          `<strong>Bank (Want to Automate Accounts Payable, Don't Know Where to Start):</strong> A bank's COO wanted to automate the accounts payable process but every team described it differently and the actual flow was a mystery. IBM Process Mining analysed 18 months of transaction records from the financial system and mapped exactly how the process actually ran. The discovery: 47 different process variants existed where there should have been 3, and 30% of invoices were flowing through a manual exception path that cost 8× more per invoice than the standard route. <strong>The COO used the process map to redesign the standard path and target automation at the 3 highest-volume exceptions, AP processing cost fell 42%. Without process mining, automation investment would have been applied to the wrong steps.</strong>`,
+          `<strong>Hospital (Missing Patient Waiting Time Targets, Assumed It Was a Capacity Problem):</strong> A hospital trust was failing to meet the 18-week referral-to-treatment target and facing regulatory pressure. Clinical leadership assumed the bottleneck was not enough clinical staff or beds. IBM Process Mining on the referral pathway data revealed the actual bottleneck: 35% of patient referrals were sitting for 2+ days in an "administrative hold" step with no clinical reason, a legacy system handoff that no one had ever questioned. Eliminating the step was a process change, not a staffing one. <strong>Referral-to-appointment time reduced by 4 days; the trust's target compliance improved by 8 percentage points, without hiring a single additional clinical staff member.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM Sovereign Core`,
+    cat: `Automation`,
+    partner: false,
+    link: `https://www.ibm.com/products/sovereign-core`,
+    salesLinks: [
+      { type: `product`, label: `IBM Sovereign Core, Product Page (ibm.com)`, url: `https://www.ibm.com/products/sovereign-core` },
+      { type: `seismic`, label: `IBM Sovereign Core Sales Kit (Seismic)`, url: `https://ibm.seismic.com/Link/Content/DCJ3VJ9fDMGWHG2PXgjTVbPQBRJj` },
+      { type: `w3`, label: `What's New in Sovereign Core 1.2 (w3 Internal)`, url: `https://w3.ibm.com/w3publisher/news/august-2026/ibm-sovereign-core-1-2` },
+      { type: `w3`, label: `What's New in Sovereign Core, May 2026 (w3 Internal)`, url: `https://w3.ibm.com/w3publisher/news/may-2026/whats-new-sovereign-core` }
+    ],
+    desc: `IBM Sovereign Core is a secure, sovereign infrastructure offering designed to help organisations build and operate critical workloads with data residency, regulatory compliance, and operational control, enabling sovereign cloud deployments that keep data within defined geographic or jurisdictional boundaries while maintaining IBM-managed operational efficiency.`,
+    solutions: [
+      {
+        name: `Sovereign Infrastructure &amp; Regulatory Compliance`,
+        desc: `Provides a dedicated, IBM-managed infrastructure layer with built-in data residency controls, jurisdictional isolation, and audit capabilities, enabling organisations in regulated industries and government sectors to deploy workloads on cloud infrastructure that meets sovereign data requirements without sacrificing operational efficiency.`,
+        why: [`Meet data residency and regulatory requirements`, `Sovereign cloud without forgoing IBM-managed operations`, `Auditability and control for regulated workloads`],
+        who: [`Government / Public Sector IT`, `Regulated Industry CIOs`, `Chief Compliance Officer / GRC`],
+        examples: [
+          `<strong>Government Agency (Cloud Modernisation Blocked by Data Residency Law):</strong> A government agency needed to modernise its citizen identity platform, but national law required all citizen personal data to be processed and stored within the country's borders, and legal blocked any standard public cloud deployment. IBM Sovereign Core provided an IBM-managed infrastructure solution that keeps all data within the national boundary by design, with automated compliance evidence generated continuously. <strong>The modernisation project was unblocked, the agency received IBM-managed cloud efficiency and operational focus without the legal risk of standard cloud, while the compliance team had ready-made evidence for regulatory reporting.</strong>`,
+          `<strong>European Bank (Cloud Transformation Blocked for 18 Months, Two Overlapping Regulations):</strong> A European bank needed to move critical financial workloads to cloud infrastructure, but two regulations were blocking progress: DORA (which requires documented operational control and audit evidence over critical IT systems) and national data sovereignty rules (which restrict where financial data can be processed). Standard cloud providers couldn't satisfy either requirement. IBM Sovereign Core deployed the workloads on geographically isolated, IBM-managed infrastructure with automated audit evidence mapped to DORA's requirements. <strong>The bank passed its DORA compliance assessment and received regulatory approval to proceed, unblocking a cloud transformation programme that had been stuck for 18 months.</strong>`
+        ]
+      }
+    ]
+  },
+  {
+    name: `IBM FinOps (IBM Cloud FinOps Services)`,
+    cat: `FinOps`,
+    partner: false,
+    link: `https://www.ibm.com/solutions/finops`,
+    salesLinks: [
+      { type: `product`, label: `IBM FinOps Solutions (ibm.com)`, url: `https://www.ibm.com/solutions/finops` }
+    ],
+    desc: `IBM's professional services and tooling for establishing enterprise FinOps practices, combining Apptio, Cloudability, Turbonomic, and Kubecost with advisory services to build sustainable cloud financial governance programmes.`,
+    solutions: [
+      {
+        name: `FinOps Programme &amp; Practice Enablement`,
+        desc: `IBM consultants implement FinOps operating models, establishing tagging standards, cost allocation frameworks, showback/chargeback processes, and continuous optimisation cadences.`,
+        why: [`Build durable cloud cost management capabilities`, `Accelerate FinOps maturity with proven frameworks`],
+        who: [`CIO / CTO`, `CFO / Finance`, `FinOps Practitioners`],
+        examples: [
+          `<strong>Retailer ($40M Cloud Bill, CFO Can't See Any ROI):</strong> A retailer's cloud spend had grown to $40M/year with no breakdown by business area, the CFO couldn't answer whether the investment was delivering return or which business capabilities were driving it. IBM's FinOps consulting team established a 90-day foundation: cost tagging rules enforced at the point of provisioning, costs attributed to each of 8 business divisions in Cloudability, and monthly cost reports delivered to each division's finance team. <strong>Within 6 months, engineering teams seeing their own costs for the first time reduced cloud waste by $6M annually, and the CFO had full visibility of cloud ROI per business area for the first time.</strong>`,
+          `<strong>Bank (Doing FinOps for a Year, Still Not Getting the Savings):</strong> A bank had been working on cloud cost management for 12 months and had good visibility of their cloud spending, but weren't acting on the savings opportunities, discount commitments were under-optimised and rightsizing recommendations sat unacted upon. IBM FinOps services were engaged to accelerate progress: implementing cloud discount commitments based on Cloudability analysis, setting up an automated rightsizing workflow, and upskilling the internal team. <strong>The bank achieved a 34% average cloud discount and $9M in annual savings, moving from visibility-only to active optimisation in 4 months, rather than the typical 12–18 month self-guided journey.</strong>`
+        ]
+      }
+    ]
+  }
+];
+
+// ── Category config (colour + RGB components for gradient bg) ──
+const CAT_COLORS = {
+  Observability: { hex: `#0e6b7c`, r: 14,  g: 107, b: 124, light: `#0e8fa8` },
+  FinOps:        { hex: `#1a7a3c`, r: 26,  g: 122, b: 60,  light: `#22a050` },
+  AIOps:         { hex: `#7c5cd8`, r: 124, g: 92,  b: 216, light: `#9b7de8` },
+  Portfolio:     { hex: `#1a56a0`, r: 26,  g: 86,  b: 160, light: `#2563eb` },
+  Automation:    { hex: `#c45c10`, r: 196, g: 92,  b: 16,  light: `#e06818` }
+};
+
+// ── Category display labels ──
+const CAT_LABELS = {
+  Observability: `Observability`,
+  FinOps:        `FinOps`,
+  AIOps:         `AIOps`,
+  Portfolio:     `Strategic Portfolio Management`,
+  Automation:    `Automation`
+};
+
+// Category icons (SVG paths)
+const CAT_ICONS = {
+  Observability: `<svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="3"/><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 2a5 5 0 110 10A5 5 0 018 3z" opacity=".4"/></svg>`,
+  FinOps:        `<svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11 3.5 14 5 9 1 6h5z" opacity=".8"/></svg>`,
+  AIOps:         `<svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="6" width="3" height="8" rx="1"/><rect x="6.5" y="2" width="3" height="12" rx="1"/><rect x="11" y="5" width="3" height="9" rx="1"/></svg>`,
+  Portfolio:     `<svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="4" width="14" height="10" rx="2" opacity=".5"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/></svg>`,
+  Automation:    `<svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a1 1 0 01.9.55l5 9A1 1 0 0113 12H3a1 1 0 01-.9-1.45l5-9A1 1 0 018 1z" opacity=".8"/></svg>`
+};
+
+// ── State ──
+let activeIdx = null;
+let searchVal = '';
+let activeCat = 'all';
+
+// ── DOM refs ──
+const productList = document.getElementById('productList');
+const rpInner = document.getElementById('rpInner');
+const lpCount = document.getElementById('lpCount');
+const searchInput = document.getElementById('searchInput');
+
+// ── Filtered products ──
+function getFiltered() {
+  return PRODUCTS.filter(p => {
+    const matchesCat = activeCat === 'all' || p.cat === activeCat;
+    const q = searchVal.toLowerCase();
+    const matchesSearch = !q ||
+      p.name.toLowerCase().includes(q) ||
+      p.cat.toLowerCase().includes(q) ||
+      p.desc.toLowerCase().includes(q) ||
+      p.solutions.some(s => s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
+    return matchesCat && matchesSearch;
+  });
+}
+
+// ── Render left panel ──
+function renderList() {
+  const filtered = getFiltered();
+  lpCount.textContent = `${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+  productList.innerHTML = '';
+
+  if (filtered.length === 0) {
+    productList.innerHTML = `<div class="no-results">No products match</div>`;
+    return;
+  }
+
+  const grouped = {};
+  filtered.forEach(p => {
+    const gIdx = PRODUCTS.indexOf(p);
+    if (!grouped[p.cat]) grouped[p.cat] = [];
+    grouped[p.cat].push({ p, gIdx });
+  });
+
+  const catOrder = ['Observability', 'AIOps', 'FinOps', 'Portfolio', 'Automation'];
+  catOrder.forEach(cat => {
+    if (!grouped[cat]) return;
+    const cfg = CAT_COLORS[cat] || { hex: '#57606a', r: 87, g: 96, b: 106 };
+    const gl = document.createElement('div');
+    gl.className = 'cat-group-label';
+    gl.style.color = cfg.hex;
+    gl.innerHTML = `<span class="cat-dot" style="background:${cfg.hex}"></span>${CAT_LABELS[cat] || cat}`;
+    productList.appendChild(gl);
+    grouped[cat].forEach(({ p, gIdx }) => {
+      const el = document.createElement('div');
+      el.className = 'pli' + (gIdx === activeIdx ? ' active' : '');
+      const cfg2 = CAT_COLORS[p.cat] || { hex: '#7c5cd8', r: 124, g: 92, b: 216 };
+      el.style.setProperty('--pc', cfg2.hex);
+      el.style.setProperty('--pcr', cfg2.r);
+      el.style.setProperty('--pcg', cfg2.g);
+      el.style.setProperty('--pcb', cfg2.b);
+      el.innerHTML = `<span>${p.name}</span>${p.partner ? `<span class="pli-partner">Partner</span>` : ''}`;
+      el.addEventListener('click', () => { activeIdx = gIdx; renderList(); renderDetail(); });
+      productList.appendChild(el);
+    });
+  });
+}
+
+// ── Render right panel ──
+function renderDetail() {
+  if (activeIdx === null || !PRODUCTS[activeIdx]) {
+    rpInner.innerHTML = `<div class="empty-state">
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" style="filter:drop-shadow(0 8px 20px rgba(124,92,216,.15))">
+        <g transform="translate(36,36)">
+          <polygon points="0,-22 19,-11 0,0 -19,-11" fill="#e8ecf4" stroke="#c8d0e0" stroke-width="1"/>
+          <polygon points="19,-11 19,11 0,22 0,0" fill="#d0d8ea" stroke="#c0c8da" stroke-width="1"/>
+          <polygon points="-19,-11 -19,11 0,22 0,0" fill="#dce4f0" stroke="#c8d0e0" stroke-width="1"/>
+          <polygon points="0,-22 19,-11 0,0 -19,-11" fill="url(#tg2)" opacity=".5"/>
+          <line x1="-8" y1="-10" x2="8" y2="-17" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="-8" y1="-7" x2="5" y2="-13.5" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="-8" y1="-4" x2="2" y2="-10" stroke="#a0aec0" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+        <defs><linearGradient id="tg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity=".8"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+      </svg>
+      <p>Select a product from the left to begin</p>
+      <span class="empty-hint">14 products across Observability, FinOps, AIOps, Portfolio &amp; Automation</span>
+    </div>`;
+    return;
+  }
+
+  const p = PRODUCTS[activeIdx];
+  const cfg = CAT_COLORS[p.cat] || { hex: '#7c5cd8', light: '#9b7de8', r: 124, g: 92, b: 216 };
+  const col = cfg.hex;
+  const colLight = cfg.light || col;
+
+  // ── Hero banner ──
+  let html = `<div class="pd-hero" style="--col-a:${col};--col-b:${colLight};background:linear-gradient(135deg,${col} 0%,${colLight} 100%)">`;
+  html += `<div class="pd-name">${p.name}</div>`;
+  html += `<div class="pd-badges">`;
+  html += `<span class="pd-badge">${CAT_ICONS[p.cat] || ''}${CAT_LABELS[p.cat] || p.cat}</span>`;
+  if (p.partner) html += `<span class="pd-badge partner">⬡ IBM Partner Tool</span>`;
+  if (p.link) html += `<a class="pd-badge" href="${p.link}" target="_blank" rel="noopener">↗ Product Page</a>`;
+  html += `</div></div>`;
+
+  // ── Description ──
+  html += `<div class="product-desc" style="--col-a:${col};border-left-color:${col}">${p.desc}</div>`;
+
+  // ── Solutions ──
+  const solCount = p.solutions.length;
+  html += `<div class="solutions-label">Solution Areas &nbsp;(${solCount})</div>`;
+  html += `<div class="solutions-grid">`;
+  p.solutions.forEach((s, si) => {
+    const isFirst = si === 0;
+    html += `<div class="solution-item" style="--sc:${col};border-left-color:${col}" data-si="${si}">`;
+    // Clickable header
+    html += `<div class="sol-header" onclick="toggleSol(this)">`;
+    html += `<div class="solution-name" style="color:${col}">${s.name}</div>`;
+    if (s.link) html += `<a class="sol-docs-link" href="${s.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗ docs</a>`;
+    html += `<span class="sol-toggle${isFirst ? ' open' : ''}">▾</span>`;
+    html += `</div>`;
+    // Collapsible body
+    html += `<div class="sol-body${isFirst ? ' open' : ''}">`;
+    html += `<div class="solution-desc">${s.desc}</div>`;
+    if (s.why && s.why.length) {
+      html += `<div class="section-label">Why organisations use it</div>`;
+      html += `<div class="meta-row">${s.why.map(w => `<span class="meta-chip chip-why">${w}</span>`).join('')}</div>`;
+    }
+    if (s.who && s.who.length) {
+      html += `<div class="section-label">Who benefits</div>`;
+      html += `<div class="meta-row">${s.who.map(w => `<span class="meta-chip chip-who">${w}</span>`).join('')}</div>`;
+    }
+    if (s.examples && s.examples.length) {
+      html += `<div class="section-label">In Practice — ${s.examples.length} Example${s.examples.length > 1 ? 's' : ''}</div>`;
+      html += `<div class="examples" style="--sc:${col}">`;
+      s.examples.forEach(e => { html += `<div class="example-item">${e}</div>`; });
+      html += `</div>`;
+    }
+    html += `</div></div>`;
+  });
+  html += `</div>`;
+
+  // ── Sales resources ──
+  if (p.salesLinks && p.salesLinks.length) {
+    const typeLabel = {product:'Product Page',seismic:'Seismic',announce:'Announcement',w3:'w3 Internal',support:'Support'};
+    const typeClass = {product:'slt-product',seismic:'slt-seismic',announce:'slt-announce',w3:'slt-w3',support:'slt-support'};
+    html += `<div class="sales-resources">`;
+    html += `<div class="sales-resources-label">📎 Sales &amp; Enablement Resources</div>`;
+    html += `<div class="sales-links">`;
+    p.salesLinks.forEach(sl => {
+      const tc = typeClass[sl.type] || 'slt-product';
+      const tl = typeLabel[sl.type] || sl.type;
+      html += `<div class="sales-link-row"><span class="sales-link-type ${tc}">${tl}</span><a href="${sl.url}" target="_blank" rel="noopener">${sl.label}</a></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  rpInner.innerHTML = html;
+  document.getElementById('rp').scrollTop = 0;
+}
+
+// ── Toggle solution card open/close ──
+function toggleSol(headerEl) {
+  const item = headerEl.closest('.solution-item');
+  const body = item.querySelector('.sol-body');
+  const toggle = item.querySelector('.sol-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// ── Search ──
+searchInput.addEventListener('input', () => {
+  searchVal = searchInput.value.trim();
+  activeIdx = null;
+  renderList();
+  renderDetail();
+});
+
+// ── Category filter chips ──
+document.querySelectorAll('.fc').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeCat = btn.dataset.cat;
+    document.querySelectorAll('.fc').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeIdx = null;
+    renderList();
+    renderDetail();
+  });
+});
+
+// ── Initial render ──
+renderList();
+</script>
+</body>
+</html>
